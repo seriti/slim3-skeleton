@@ -1,0 +1,38 @@
+{
+    "name": "seriti/slim3-skeleton",
+    "description": "A private MySQL administrative application framework using Seriti Tools library and Slim 3 Framework",
+    "keywords": ["microframework", "rest", "slim", "seriti","admin","private"],
+    "homepage": "http://github.com/seriti/slim3-skeleton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mark Andrew",
+            "email": "mark@seriti.com",
+            "homepage": "http://www.seriti.com/"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "seriti/tools": "^1.0",
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "^1.17",
+        "setasign/fpdf": "^1.8",
+        "aws/aws-sdk-php": "^3.71",
+        "defuse/php-encryption": "^2.2",
+        "phpmailer/phpmailer": "^6.0",
+        "erusev/parsedown": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "process-timeout" : 0
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public_html"
+    }
+
+}

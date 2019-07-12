@@ -1,0 +1,466 @@
+/*************************************/
+/* OVERRIDE BOOTSTRAP STYLES         */
+/*************************************/
+body {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size: 14px;
+}
+
+.navbar {
+  font-size:14px;
+}
+
+.nav-tabs {
+  margin-bottom:10px;
+}
+
+.navbar-brand {
+  padding-top:6px;
+  padding-bottom:6px;
+}
+
+.navbar-brand-text {
+  vertical-align:middle;
+  line-height:36px;
+}
+
+/*************************************/
+/* ALL SERITI FRAMEWORK LOGIN  STYLES*/
+/*************************************/
+
+#menu_div{}
+
+#title_div{}
+
+
+#main_div{
+  width:100%;
+  height:100%;
+  overflow:auto;
+}
+
+#footer_div {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  width:100%;
+  text-align:center;
+  /* for sticky footer
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  */ 
+}
+
+#login_div{
+  font-size: 1.2em;
+  background-color:#fafafa;
+  padding:1em;
+  margin:0 auto;
+  margin-top:1em;
+  border:1em solid #CCCCCC;
+  text-align:center;
+  -webkit-border-radius: 1em;
+     -moz-border-radius: 1em;
+          border-radius: 1em;
+}
+
+#login_div img {
+  max-height:5em;
+  max-width:100%;
+  padding-bottom:1em;
+  margin: auto;
+}
+
+
+/* legacy styles*/
+#login{
+  font-family:Arial,Helvetica,sans-serif;
+  color: #333333;
+  font-size:1em;
+  background-color:#ffffff;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  width:240px;
+  padding:10px;
+  margin:0 auto;
+  margin-top:20px;
+  border:2px solid #CCCCCC;
+  text-align:center;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
+
+
+/*************************************/
+/* ALL SERITI FRAMEWORK TABLE  STYLES*/
+/*************************************/
+/* overwrite anything in site stylesheet if you want, just make sure included AFTER seriti_style.css */
+
+h1 {
+  color: #333333;
+  font-size:22px;
+}
+
+h2 {
+  color: #333333;
+  font-size:18px;
+}
+
+h3 {
+  color: #333333;
+  font-size:16px;
+  display:inline;
+}
+
+.page_title {
+  color: #999999;
+  font-size:18px;
+}
+
+.row-title {
+  padding-top:10px;
+  padding-bottom:16px;
+}
+
+.star {
+  font-size:18px;
+  font-weight:bold;
+  color:#FF0000;
+}
+
+.edit_input {
+  Xwidth:220px;
+  margin-bottom:4px;
+}
+
+.input-tiny {
+  width:60px;
+  margin-bottom:4px;
+}
+
+.input-small {
+  width:120px;
+  margin-bottom:4px;
+}
+
+.input-medium {
+  width:240px;
+  margin-bottom:4px;
+}
+
+.input-large {
+  width:480px;
+  margin-bottom:4px;
+}
+
+.input-inline {
+  display:inline;
+}
+
+.help-menu table td {
+  background-color:#FFFFFF;
+}
+
+.table-simple table td {
+  padding:4px;
+}
+
+/*** generic table layouts ***/
+
+.ajax_edit input, .ajax_edit select, .ajax_edit textarea{
+  width:100%;
+}
+
+.number {
+  text-align:right;
+}
+
+.thead {
+  background-color:#CCCCCC;
+  color:#333333;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.trow_active {
+  background-color:#A3FFA3;
+  color:#333333;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  font-weight:normal;
+}
+
+/* used for alternating row colours oustide of tables which use bootstrap generic table class
+use .row and .row_alt to override bootstrap settings
+*/
+.back_red {
+  background-color:#FF0000;
+}
+
+.back_blue {
+  background-color:#0000FF;
+}
+
+.back_green {
+  background-color:#00FF00;
+}
+
+/*** navigation block layout ***/
+#navigate_div {
+  color:#000000;
+  font-size:14px;
+  font-weight:bold;
+}
+
+
+
+#navigate_div .nav_sort {
+  color:#333333;
+  font-size:12px;
+  font-style:italic;
+  font-weight:normal;
+}
+
+/*** action block layout ***/
+#action_div {
+  padding-bottom:8px;
+}
+#action_div table td{
+  padding-right:8px;
+}
+
+/*** search block layout ***/
+#search_div{
+  width:100%;
+  height:100%;
+  overflow:auto;
+  background-color:#f1f1f1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  padding: 8px 35px 8px 14px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  
+}
+
+#search_div .search_label {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  color:#333333;
+  font-weight:normal;
+  vertical-align:middle;
+}
+
+#search_div table td {
+ padding:2px;
+}
+
+#import_div{
+  background-color:#f1f1f1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  padding:  14px 10px 10px 10px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  
+}
+
+#search_div .search_label {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  color:#333333;
+  font-weight:normal;
+  vertical-align:middle;
+}
+
+/*** information block layout ***/
+#info_div {
+  display:none;
+  margin-top:10px;
+}
+
+/*** List table block layout ***/
+#list_div {
+  width:100%;
+  height:100%;
+  font-size:0.8em;
+  padding-top:10px;
+  padding-bottom:10px;
+  overflow: auto;
+}
+
+#list_div table  a.action {
+  padding-left:2px;
+  padding-right:2px;
+  margin:0px 5px 0px 5px;
+}
+
+
+/*** Checklist layout ***/
+#check_div {
+  padding-left:0px;
+  padding-right:0px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+#check_div table  tr.trow {
+  background-color:#EBEBEB;
+  color:#333333;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  font-weight:normal;
+}
+
+#check_div table  tr.trow_alt {
+  background-color:#F6F6F6;
+  color:#333333;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  font-weight:normal;
+}
+
+/*** Edit row block layout ***/
+#edit_div {
+  padding-left:0px;
+  padding-right:0px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+#edit_div .edit_label {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  color:#000000;
+  font-weight:bold;
+}
+
+#edit_div .edit_hint {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  color:#666666;
+  font-weight:normal;
+  font-style:italic;
+}
+
+/*** Edit row block layout ***/
+#view_div {
+  padding-left:0px;
+  padding-right:0px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+#view_div .view_label {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  color:#000000;
+  font-weight:bold;
+}
+
+#view_div .view_hint {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  color:#666666;
+  font-weight:normal;
+  font-style:italic;
+}
+
+/*** seriti_image and seriti_file layouts ***/
+
+#image_view_div  {
+  background-color:#F6F6F6;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+#image_view_div .image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}  
+
+#image_view_div p {
+  text-align: center;
+}  
+
+/*** error and messaging divs ***/
+
+#error_div {
+  
+}
+
+#message_div {
+  margin-top:10px;
+}
+
+.help-text {
+  background-color:#f1f1f1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  padding:  14px 10px 10px 10px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+/*** seriti_tree ***/
+
+
+#tree_div {
+  float:left;
+  width:50%;
+  background:#ffffff;
+  font-size:14px;
+}
+#node_div {
+  float:right;
+  width:50%;
+  background:#EEEEEE;
+  padding:20px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+#node_div .edit_label {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  color:#000000;
+  font-weight:bold;
+}
+
+#node_div .action {
+  font-size:14px;
+  font-weight:bold;
+  padding-right:10px;
+}
+
+/*** seriti wizard ***/
+.wizard_label {
+  font-weight:bold;
+}
+
+/*** easy margin classes ***/
+.margin_t10 {
+  margin-top:10px;
+}
+.margin_b10 {
+  margin-bottom:10px;
+}
+.margin_l10 {
+  margin-left:10px;
+}
+.margin_r10 {
+  margin-right:10px;
+}

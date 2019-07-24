@@ -1,0 +1,4 @@
+# tells linguist to ignore all files except .php when determining languages used 
+# solves issue where vendor css and javascript files in public_html are seen as part of codebase
+* linguist-vendored
+*.php linguist-vendored=false

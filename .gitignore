@@ -3,3 +3,4 @@
 !/logs/README.md
 env.php
 *.sublime-project
+*.sublime-workspace

@@ -19,7 +19,9 @@ if(SETUP_APP === false) {
 
         $html = $setup->viewOutput();
         if(count($setup->error) === 0) {
-            $html .= '<h1>Database setup complete please make define(\'SETUP_APP\',true); in src/env.php file</h1>';
+            $html .= '<h1>Database setup complete.</h1>';
+            $html .= '<h2>1.) Make define(\'SETUP_APP\',true); in src/env.php file</h2>';
+            $html .= '<h2>2.) Then <a href="login">Login</a> with email: '.MAIL_WEBMASTER.' and Password: SUNFLOWER</h2>';
         }    
 
         return $html;
@@ -40,7 +42,7 @@ $app->any('/login', function (Request $request, Response $response, array $args)
 
 $app->group('/admin', function () {
 
-    //where url: wtf.com/admin or wtf.com/admin/ 
+    //where url: abc.com/admin or abc.com/admin/ 
     $this->redirect('', '/admin/dashboard', 301);
     $this->redirect('/', 'dashboard', 301);
 
@@ -78,14 +80,10 @@ $app->group('/admin', function () {
 
 //*** BEGIN public access ***
 $app->get('/', function (Request $request, Response $response, array $args) {
-    var_dump($args);
-}); 
-
-$app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Seriti Slim3-Skeleton framework '/' route");
         
-    // Render hellp page with setup links
+    // Render welcome page with setup links
     return $this->view->render($response,'index.php',$args);
 });
 

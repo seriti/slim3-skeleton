@@ -13,10 +13,18 @@ $app->getContainer()['notFoundHandler'] = function ($c) {
 };
 
 //*** COMMENT OUT THIS ROUTE AFTER YOU HAVE SETUP REQUIRED DATABASE TABLES ***
-$app->get('/setup', function (Request $request, Response $response, array $args) {
-    $setup = new Seriti\Tools\Setup($this->config);
-    return $setup->viewOutput();
-});
+if(SETUP_APP === false) {
+    $app->get('/setup', function (Request $request, Response $response, array $args) {
+        $setup = new Seriti\Tools\Setup($this->config);
+
+        $html = $setup->viewOutput();
+        if(count($setup->error) === 0) {
+            $html .= '<h1>Database setup complete please make define(\'SETUP_APP\',true); in src/env.php file</h1>';
+        }    
+
+        return $html;
+    });
+}    
 //*** END COMMENT OUT *** 
 
 //*** BEGIN admin access ***

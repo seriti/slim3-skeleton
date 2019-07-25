@@ -37,9 +37,11 @@ NB: Some service providers can have public_html folder as a symbolic link to ano
 
 ## Define framework parameters
 
-Review contents of "env-example.php" and set MySQL database connection parameters as a minimum requirement.
-NB: MAKE SURE THAT SYSTEM TABLES SPECIFIED DO NOT CLASH WITH ANY OF YOUR EXISTING TABLES IN DATABASE
-Rename this file to "env.php" once you have modified it.
+Review contents of [directory-for-app]/env-example.php and set MySQL database connection parameters as a minimum requirement.
+NB1: MAKE SURE THAT SYSTEM TABLES SPECIFIED DO NOT CLASH WITH ANY OF YOUR EXISTING TABLES IN DATABASE
+NB2: Unless you have setup default tables already make sure define('SETUP_APP',false); 
+
+Rename this file to [directory-for-app]/env.php once you have modified it.
 
 ## Check that webserver is working
 
@@ -51,13 +53,13 @@ OR
 
 ## Setup database tables
 
-Now goto URL:
+You should see a setup link in welcome page in above step, alternatively you can goto URL:
 "http://localhost:8000/setup" if you are using php built in server
 OR 
 "http://www.yourdomain.com/setup" if you have configured a domain on your server
 
 If all goes well you should see a message detailing success in creating necessary database tables.
-NB: AFTER SUCCESSFUL SETUP REMEMBER TO COMMENT OUT /SETUP ROUTE in [directory-for-app]/src/routes.php
+NB: AFTER SUCCESSFUL SETUP, make define('SETUP_APP',true); in [directory-for-app]/env.php, and comment out "/setup" route in [directory-for-app]/src/routes.php
 
 ## Finally login to admin interface:
 

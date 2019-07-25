@@ -3,6 +3,7 @@
 //referenced in Config class
 define('SITE_NAME','Seriti Skeleton');
 
+define('SETUP_APP',false); //make true once app setup and required database tables exist 
 define('DEBUG',true); //make false in production
 define('AUDIT',true);
 define('STORAGE','local'); // use 'amazon' if you wish to store documents in an amazon s3 bucket as specified below
@@ -36,6 +37,9 @@ define('AWS_S3_BUCKET','bucket');
 //email sending parameters vital for user management
 //NB: MAIL_WEBMASTER is used to create default user record on setup
 define('MAIL_ENABLED',true);
+define('MAIL_FORMAT','text');
+define('MAIL_METHOD','smtp');
+define('MAIL_CHARSET','UTF-8');
 define('MAIL_FROM','from@yourdomain.com');
 define('MAIL_TO','to@yourdomain.com');
 define('MAIL_WEBMASTER','webmaster@yourdomain.com');

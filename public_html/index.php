@@ -58,8 +58,8 @@ $app = new \Slim\App($settings);
 //Setup all dependencies
 require BASE_DIR.'src/dependencies.php';
 
-//Setup application layout and configuration
-require BASE_DIR.'src/setup_app.php';
+//Setup application layout and configuration constants
+if(SETUP_APP) require BASE_DIR.'src/setup_app.php';
 
 // Register routes
 require BASE_DIR.'src/routes.php';

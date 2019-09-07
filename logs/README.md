@@ -1,1 +1,1 @@
-Your Slim Framework application's log files will be written to this directory.
+Your Seriti Slim3 application framework application's log files will be written to this directory.

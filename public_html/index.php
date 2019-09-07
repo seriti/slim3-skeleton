@@ -1,6 +1,11 @@
 <?php
 /*****************************************************
 
+TO INSTALL PROJECT FROM COMMAND LINE, CHANGE DIRECTORY TO WHERE YOU WANT PROJECT TO BE
+- Assuming composer is already installed, you can run "composer create-project seriti/slim3-skeleton skeleton"
+- This will install all code in "skeleton" directory and download all required vendor dependencies
+
+
 FOR SHARED HOSTING ENVIRONMENT where service provider has a predefined "public_html" folder which you cannot change
 - Copy all code in "skeleton/public_html" to host "public_html" folder. 
 - Check that BASE_DIR is absolute path to "skeleton" folder, and that BASE_DIR_PUBLIC is absolute path to "public_html" webroot

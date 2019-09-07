@@ -1,4 +1,5 @@
 <?php
+//START ADMIN WEBSITE application settings
 //Application system menu options for GOD access only
 //key = route from web root, value = menu text
 define('SYSTEM_MENU',['admin/custom/menu'=>'Admin Customisation module',
@@ -67,6 +68,15 @@ if($style === 'INVERSE') {
     define('WWW_MENU_STYLE','navbar navbar-default navbar-fixed-top'); 
 } 
 
+$image = $container['system']->getDefault('WWW_MENU_IMAGE','');
+if($image !== '') {
+    define('WWW_MENU_LOGO','<img src="'.BASE_URL.BASE_UPLOAD_WWW.$image.'" height="40">');
+    define('WWW_SITE_ICON','<link rel="icon" href="'.BASE_URL.BASE_UPLOAD_WWW.$image.'" type="image/x-icon">');
+} else {
+    define('WWW_MENU_LOGO',SITE_NAME);
+    define('WWW_SITE_ICON','');
+}
+
 $theme = $container['system']->getDefault('WWW_SITE_THEME','DEFAULT');
 if($theme === 'DEFAULT') {
     define('WWW_SITE_THEME_CSS','bootstrap.min.css');
@@ -75,7 +85,7 @@ if($theme === 'DEFAULT') {
 } 
 //END PUBLIC WEBSITE settings
 
-//Application module setups
+//Application module setup
 $container['config']->set('module','custom',['name'=>'Customise',
                                              'route_root'=>'admin/custom/',
                                              'route_list'=>['menu'=>'Menu items','pdf'=>'PDF layout','setup'=>'Site setup'],

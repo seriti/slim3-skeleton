@@ -31,6 +31,6 @@ class PdfSetupController
             $template['javascript'] = $setup->getJavascript();
         }
         
-        return $this->container->view->render($response,'table.php',$template);
+        return $this->container->view->render($response,'admin.php',$template);
     }
 }

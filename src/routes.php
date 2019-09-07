@@ -31,31 +31,16 @@ if(SETUP_APP === false) {
 
 //*** BEGIN admin access ***
 //NB: must be outside /admin route as Auth middleware will create infinite loop
-$app->any('/login', function (Request $request, Response $response, array $args) {
-    $user = $this->user;
-    $html = $user->processLogin();
+$app->any('/login', \App\LoginController::class);
 
-    $template['html'] = $html;
-    $template['title'] = 'LOGIN';
-    return $this->view->render($response,'login.php',$template);
-});
+$app->get('/error', \App\ErrorController::class);
 
 $app->group('/admin', function () {
 
     //where url: abc.com/admin or abc.com/admin/ 
     $this->redirect('', '/admin/dashboard', 301);
     $this->redirect('/', 'dashboard', 301);
-
-    $this->get('/dashboard', function (Request $request, Response $response, array $args) {
-        $template['html'] = '<h1>This page is default admin landing page can be customised to your requirements</h1>';
-        $template['html'] .= 'Customise admin <a href="/admin/custom/menu">menu</a><br/>';
-        //$template['html'] .= 'which is same as <a href="custom/menu">menu</a>';
-        $template['html'] .= 'Manage admin users <a href="/admin/user">All users</a><br/>';
-        $template['html'] .= 'Check user audit trail <a href="/admin/audit">All users</a><br/>';
-        
-        $template['title'] = 'Dashboard';
-        return $this->view->render($response,'table.php',$template);
-    });
+    $this->get('/dashboard', \App\DashboardController::class);
 
     $this->any('/user', \App\UserController::class);
     $this->any('/audit', \App\AuditController::class);
@@ -74,7 +59,7 @@ $app->group('/admin', function () {
     
     //generic ajax for csv download and other common tasks 
     $this->get('/ajax', \App\Ajax::class);
-})->add(\App\UserAuth::class);
+})->add(\App\ConfigAdmin::class);
 //*** END admin access ***
 
 

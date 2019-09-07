@@ -2,9 +2,12 @@
 namespace App;
 
 use Psr\Container\ContainerInterface;
-use App\Encrypt;
 
-class EncryptController
+use Seriti\Tools\BASE_URL;
+
+use App\Dashboard;
+
+class DashboardController
 {
     protected $container;
     
@@ -17,19 +20,20 @@ class EncryptController
 
     public function __invoke($request, $response, $args)
     {
-        $secure = new Encrypt($this->container->mysql,$this->container);
-        $html = $secure->process();
-
         $menu = $this->container->menu;
-        
         $system = []; //can specify any GOD access system menu items
         $options['logo_link'] = BASE_URL.'admin/dashboard';
-        $options['active_link'] = 'admin/encrypt';
         $menu_html = $menu->buildMenu($system,$options);
-        $this->container->view->addAttribute('menu',$menu_html); 
+        $this->container->view->addAttribute('menu',$menu_html);
+
+        $dashboard = new Dashboard($this->container->mysql,$this->container);
+        
+        $dashboard->setup();
+        $html = $dashboard->viewBlocks();
 
         $template['html'] = $html;
-        $template['title'] = 'Encryption key configuration';
+        $template['title'] = 'Dashboard';
+        //$template['javascript'] = $dashboard->getJavascript();
 
         return $this->container->view->render($response,'admin.php',$template);
     }

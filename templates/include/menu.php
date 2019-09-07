@@ -3,7 +3,4 @@
 
 echo $menu;
 
-//echo 'TEST:'.$test.'<br/>';
-?>
-
-    
+?>    

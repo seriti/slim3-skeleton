@@ -26,6 +26,6 @@ class HelpController
         $template['html'] = $html;
         $template['title'] = 'Help Content';
         
-        return $this->container->view->render($response,'table.php',$template);
+        return $this->container->view->render($response,'admin.php',$template);
     }
 }

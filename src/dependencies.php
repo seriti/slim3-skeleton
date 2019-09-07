@@ -54,7 +54,7 @@ $container['user'] = function ($c) {
     $config = $c->config;
     $table = Seriti\Tools\TABLE_USER;
     $user = new Seriti\Tools\User($c->mysql,$c,$table);
-    $param = ['route_login'=>'login','route_default'=>'admin/dashboard'];
+    $param = ['route_login'=>'login','route_default'=>'admin/dashboard','route_default_public'=>'account/dashboard'];
     $user->setup($param);
     return $user;
 };

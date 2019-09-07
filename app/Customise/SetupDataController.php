@@ -27,6 +27,6 @@ class SetupDataController
         $template['html'] = $html;
         $template['title'] = MODULE_LOGO.'Customise data configuration';
         
-        return $this->container->view->render($response,'table.php',$template);
+        return $this->container->view->render($response,'admin.php',$template);
     }
 }

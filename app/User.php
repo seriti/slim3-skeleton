@@ -73,7 +73,7 @@ class User extends Table
             $email_body = '';
 
             $html .= '<td>'.Form::arrayList($list,'table_action',$action_id,true,$param).'</td>';
-            //javascript to show collection list depending on selecetion      
+            //javascript to show collection list depending on selection      
             $html .= '<script type="text/javascript">'.
                         '$("#checkbox_all").click(function () {$(".checkbox_action").prop(\'checked\', $(this).prop(\'checked\'));});'.
                         'function change_table_action() {'.
@@ -206,8 +206,16 @@ class User extends Table
         $this->addTableCol(array('id'=>'user_id','type'=>'INTEGER','title'=>'User ID','key'=>true,'key_auto'=>true,'list'=>true));
         $this->addTableCol(array('id'=>'name','type'=>'STRING','title'=>'Name'));
         $this->addTableCol(array('id'=>'email','type'=>'EMAIL','title'=>'Email adress','hint'=>'(This must be unique to system and to all '.SITE_NAME.' users.)'));
-        $this->addTableCol(array('id'=>'access','type'=>'STRING','title'=>'Access level','new'=>'ADMIN','hint'=>'(GOD can do anything, but most importantly create users and manage them!<br/>ADMIN allows users to add and edit any data but not delete anything.<br/>VIEW_ONLY allows users to see anything but not to modify or add any data!)'));
-        $this->addTableCol(array('id'=>'password','type'=>'PASSWORD','title'=>'Password','max'=>250,'list'=>false,'hint'=>'(NB: For NEW users please note password as it will be one-way encrypted when stored!<br/>To change existing user password click "Create New" checkbox, then enter new password and Submit)'));
+        $this->addTableCol(array('id'=>'zone','type'=>'STRING','title'=>'Access zone','new'=>'ALL',
+                                'hint'=>'(ALL user can access any zone in application!<br/>
+                                         PUBLIC for public access only.)'));
+        $this->addTableCol(array('id'=>'access','type'=>'STRING','title'=>'Access level','new'=>'ADMIN',
+                                'hint'=>'(GOD can do anything, but most importantly create users and manage them!<br/>
+                                         ADMIN allows users to add, and delete most data.<br/>
+                                         USER allows users to add and edit but not delete data.<br/>
+                                         VIEW allows users to see anything but not to modify or add any data!)'));
+        $this->addTableCol(array('id'=>'password','type'=>'PASSWORD','title'=>'Password','max'=>250,'list'=>false,
+                                 'hint'=>'(NB: For NEW users please note password as it will be one-way encrypted when stored!<br/>To change existing user password click "Create New" checkbox, then enter new password and Submit)'));
 
         if($login_user->getAccessLevel() === 'GOD' and $login_user->getEmail() === 'mark@seriti.com') {
             //$this->addTableCol(array('id'=>'pwd_date','type'=>'DATE','title'=>'Password expiry date'));
@@ -226,6 +234,7 @@ class User extends Table
 
         $this->addSearch(array('user_id','name','email','access'),array('rows'=>2));
 
+        $this->addSelect('zone',['list'=>$config->get('user','zone'),'list_assoc'=>false]);
         $this->addSelect('access',['list'=>$config->get('user','access'),'list_assoc'=>false]);
         $this->addSelect('status',['list'=>$config->get('user','status'),'list_assoc'=>false]);
 

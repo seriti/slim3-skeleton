@@ -38,6 +38,6 @@ class AuditController
             $template['title'] = 'Admin user audit';
         }    
 
-        return $this->container->view->render($response,'table.php',$template);
+        return $this->container->view->render($response,'admin.php',$template);
     }
 }

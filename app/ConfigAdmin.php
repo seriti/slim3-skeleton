@@ -30,6 +30,8 @@ class ConfigAdmin
     public function __invoke($request, $response, $next)
     {
         $user = $this->container->user;
+        $menu = $this->container->menu;
+        
         //default access levels=['GOD','ADMIN','USER','VIEW']
         $minimum_level = 'VIEW';
 
@@ -48,6 +50,12 @@ class ConfigAdmin
 
         if(!$valid) return $response->withRedirect('/'.$redirect_route);
         
+        $system = []; //can specify any GOD access system menu items
+        $options['logo_link'] = BASE_URL.'admin/dashboard';
+        $options['active_link'] = URL_CLEAN;
+        $menu_html = $menu->buildMenu($system,$options);
+        $this->container->view->addAttribute('menu',$menu_html);
+
         $response = $next($request, $response);
         
         return $response;

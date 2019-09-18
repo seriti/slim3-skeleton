@@ -12,7 +12,8 @@ class User extends Table
 {
     
 
-    protected function beforeUpdate($id,$edit_type,&$form,&$error_str) {
+    protected function beforeUpdate($id,$edit_type,&$form,&$error_str) 
+    {
         //verify email unique
         $sql = 'SELECT COUNT(*) FROM '.$this->table.' WHERE email = "'.$this->db->escapeSql($form['email']).'" ';
         if($edit_type === 'UPDATE') $sql .= 'AND user_id <> "'.$this->db->escapeSql($id).'" ';  
@@ -30,27 +31,19 @@ class User extends Table
         } 
     }  
   
-    protected function afterUpdate($id,$edit_type,$form) {
-        $error = '';
-
-        /* NB: DOING THIS HERE MEANS PASSWORD IS STORED IN AUDIT TRAIL!!!!
-        if($edit_type === 'INSERT' or isset($_POST['change_password'])) {
-            //need to create salt and hash password
-            $salt = Crypt::makeSalt();
-            $pwd_hash = Crypt::passwordHash($form['password'],$salt); 
-
-            $data = [$this->user_cols['pwd_salt']=>$salt,
-                     $this->user_cols['password']=>$pwd_hash];
-            $where = [$this->user_cols['id']=>$id];
-            $this->db->updateRecord($this->table,$data,$where,$error);
-            if($error !== '') $this->addError('could not save password hash');
-
-            //die('password['.$form['password'].'] salt['.$salt.'] hash['.$pwd_hash.']');
+    protected function beforeDelete($id,&$error) 
+    {
+        $login_user = $this->getContainer('user');
+        if($login_user->getAccessLevel() === 'GOD') {
+            $sql = 'DELETE FROM '.TABLE_AUDIT.' '.
+                   'WHERE '.$this->audit_cols['user_id'].' = "'.$this->db->escapeSql($id).'" ';
+            $this->db->executeSql($sql,$error);    
         }
-        */  
-    } 
+        
+    }
   
-    protected function viewTableActions() {
+    protected function viewTableActions() 
+    {
         $html = '';
         $list = array();
             
@@ -97,7 +90,8 @@ class User extends Table
         return $html; 
     }
   
-    protected function updateTable() {
+    protected function updateTable() 
+    {
         $audit_count = 0;
         $html = '';
         $error_str = '';
@@ -223,7 +217,7 @@ class User extends Table
             $this->addTableCol(array('id'=>'email_token','type'=>'STRING','title'=>'Email token','list'=>false,'required'=>false));
             $this->addTableCol(array('id'=>'email_token_expire','type'=>'DATETIME','title'=>'Email token expiry date','list'=>false,'required'=>false));
             //$this->addTableCol(array('id'=>'pwd_salt','type'=>'STRING','title'=>'Password salt','list'=>false));
-            $this->addTableCol(array('id'=>'status','type'=>'STRING','title'=>'Status','list'=>false));
+            $this->addTableCol(array('id'=>'status','type'=>'STRING','title'=>'Status','list'=>true));
         } else { 
             $this->addSql('WHERE','T.status <> "HIDE"');
         }    

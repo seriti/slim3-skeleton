@@ -37,13 +37,18 @@ class ConfigAdmin
 
         $redirect_route = 'login';
         $zone = 'ADMIN';
+        //will return false unless a user is logged in with access >= minimum level and zone = ALL or ADMIN and status <> HIDE
         $valid = $user->checkAccessRights($zone);
 
         if($valid) {
             $this->container->mysql->setAuditUserId($user->getId());
             Secure::checkReferer(BASE_URL);
-            //$user->level must be >= minimum level
+            //$user->level must be valid level and >= minimum level
             $valid = $user->checkUserAccess($minimum_level);
+
+            //check current route is valid for user  
+            if($valid) $valid = $menu->checkRouteAccess(URL_CLEAN);
+
             //delete user session,tokens,cookies
             if(!$valid) $user->manageUserAction('LOGOUT');
         }    
@@ -51,9 +56,9 @@ class ConfigAdmin
         if(!$valid) return $response->withRedirect('/'.$redirect_route);
         
         $system = []; //can specify any GOD access system menu items
-        $options['logo_link'] = BASE_URL.'admin/dashboard';
-        $options['active_link'] = URL_CLEAN;
-        $menu_html = $menu->buildMenu($system,$options);
+        $menu_options['logo_link'] = BASE_URL.'admin/dashboard';
+        $menu_options['active_link'] = URL_CLEAN;
+        $menu_html = $menu->buildMenu($system,$menu_options);
         $this->container->view->addAttribute('menu',$menu_html);
 
         $response = $next($request, $response);

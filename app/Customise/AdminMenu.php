@@ -9,8 +9,6 @@ use Seriti\Tools\Audit;
 
 class AdminMenu extends Tree
 {
-     
-
     //configure
     public function setup($param = []) 
     {

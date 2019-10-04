@@ -30,15 +30,15 @@ class ConfigAdmin
     public function __invoke($request, $response, $next)
     {
         $user = $this->container->user;
-        $menu = $this->container->menu;
-        
         //default access levels=['GOD','ADMIN','USER','VIEW']
         $minimum_level = 'VIEW';
-
         $redirect_route = 'login';
         $zone = 'ADMIN';
         //will return false unless a user is logged in with access >= minimum level and zone = ALL or ADMIN and status <> HIDE
         $valid = $user->checkAccessRights($zone);
+
+        //after user logged in
+        $menu = $this->container->menu;
 
         if($valid) {
             $this->container->mysql->setAuditUserId($user->getId());

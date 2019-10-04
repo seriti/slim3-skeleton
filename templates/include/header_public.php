@@ -22,10 +22,10 @@
         if(defined('WWW_SITE_CSS')) echo '<style type="text/css">'.WWW_SITE_CSS.'</style>';
 
         if(defined('WWW_SITE_ICON')) echo WWW_SITE_ICON;
+
+        if($menu_spacer) echo '<style type="text/css"> body { padding-top: 70px; } </style>';
         ?>
-
-        <style type="text/css"> body { padding-top: 70px; } </style>
-
+        
         <script>
           $(document).ready(function() {
             //alert('wtf');

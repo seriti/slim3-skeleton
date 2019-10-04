@@ -45,6 +45,7 @@ if($type !== '') {
 } else {
     define('SITE_MODULE_NAV','TABS');
 }    
+//END ADMIN WEBSITE application settings
 
 //START PUBLIC WEBSITE settings
 $footer = $container['system']->getDefault('WWW_FOOTER','');

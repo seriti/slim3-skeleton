@@ -396,6 +396,13 @@ function clear_div(div_id) {
   div.innerHTML='';
 }
 
-function seriti_add_row() {
-  alert('Hello'); 
-}  
+function copy_to_clipboard(div_id) {
+  var copyDiv = document.getElementById(div_id);
+  var tempTextArea = document.createElement("textarea");
+
+  tempTextArea.value = copyDiv.textContent;
+  document.body.appendChild(tempTextArea);
+  tempTextArea.select();
+  document.execCommand("Copy");
+  tempTextArea.remove();
+}

@@ -23,7 +23,7 @@
 
         if(defined('WWW_SITE_ICON')) echo WWW_SITE_ICON;
 
-        if($menu_spacer) echo '<style type="text/css"> body { padding-top: 70px; } </style>';
+        if($spacer) echo '<style type="text/css"> body { padding-top: 70px; } </style>';
         ?>
         
         <script>

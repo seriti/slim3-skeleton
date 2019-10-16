@@ -2,7 +2,7 @@
 namespace App;
 
 $menu_spacer = false;
-echo $this->fetch('include/header_public.php',[]); 
+echo $this->fetch('include/header_public.php',['spacer'=>$menu_spacer]); 
 
 if(isset($title)) echo '<h1>'.$title.'</h1>';
 

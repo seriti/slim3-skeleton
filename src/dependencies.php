@@ -54,7 +54,8 @@ $container['user'] = function ($c) {
     $config = $c->config;
     $table = Seriti\Tools\TABLE_USER;
     $user = new Seriti\Tools\User($c->mysql,$c,$table);
-    $param = ['route_login'=>'login','route_default'=>'admin/dashboard','route_default_public'=>'public/account/dashboard'];
+    //ADMIN,ALL,PUBLIC are user zones => default route for that zone.
+    $param = ['route_login'=>'login','route_default'=>['ADMIN'=>'admin/dashboard','ALL'=>'admin/dashboard','PUBLIC'=>'public/account/dashboard']];
     $user->setup($param);
     return $user;
 };
@@ -75,3 +76,24 @@ $container['cache'] = function ($c) {
     $cache = new Seriti\Tools\Cache('MYSQL',$param);
     return $cache;
 };
+
+//will use default slim error handling in DEBUG = true mode which ouputs directly to browser
+if(!DEBUG) {
+    $container['errorHandler'] = function ($c) {
+        //$logger = $c['logger'];
+
+        return function($request, $response, $exception) use ($c) {
+            
+            $text = Seriti\Tools\Error::renderExceptionOrError($exception);
+            $c['logger']->error($text);
+            //$c['logger']->error($exception->getMessage());
+
+            $template = [];
+            return $c->view->render($response,'error.php',$template);
+        };
+    };
+
+    $container['phpErrorHandler'] = function ($c) {
+        return $c->get('errorHandler');
+    };
+}

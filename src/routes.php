@@ -7,8 +7,8 @@ unset($app->getContainer()['notFoundHandler']);
 $app->getContainer()['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         //$response = new \Slim\Http\Response(404);
-        //return $response->write("Page not found MOFO");
-        return $response->withRedirect('/');
+        //return $response->write("Page not found!");
+        return $response->withRedirect('/login');
     };
 };
 

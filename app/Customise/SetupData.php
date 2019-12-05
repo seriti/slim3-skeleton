@@ -47,7 +47,3 @@ class SetupData extends SetupModuledata
         //$this->addUpdateSql('YYYY-MM-DD HH:MM','Update TABLE_PREFIX--- SET --- "X"');
     }
 }
-
-
-  
-?>

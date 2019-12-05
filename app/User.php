@@ -234,5 +234,3 @@ class User extends Table
 
     }
 }
-
-?>

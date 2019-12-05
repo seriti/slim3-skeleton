@@ -42,7 +42,9 @@ class ConfigAdmin
 
         if($valid) {
             $this->container->mysql->setAuditUserId($user->getId());
-            Secure::checkReferer(BASE_URL);
+
+            if(isset($_SERVER['HTTP_REFERER'])) Secure::checkReferer(BASE_URL);    
+                        
             //$user->level must be valid level and >= minimum level
             $valid = $user->checkUserAccess($minimum_level);
 

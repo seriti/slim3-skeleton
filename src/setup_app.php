@@ -4,7 +4,8 @@
 //key = route from web root, value = menu text
 define('SYSTEM_MENU',['admin/custom/menu'=>'Admin Customisation module',
                       'admin/user'=>'Admin Users',
-                      'admin/audit'=>'Admin User audit']);
+                      'admin/audit'=>'Admin User audit',
+                      'admin/backup'=>'Backups']);
 
 //Application layout setup
 $theme = $container['system']->getDefault('SITE_THEME','DEFAULT');
@@ -85,6 +86,10 @@ if($theme === 'DEFAULT') {
     define('WWW_SITE_THEME_CSS','bootstrap.min_'.$theme.'.css');
 } 
 //END PUBLIC WEBSITE settings
+
+
+//User access zone setup
+$container['config']->set('user','zone',['ALL','ADMIN','PUBLIC'],true);
 
 //Application module setup
 $container['config']->set('module','custom',['name'=>'Customise',

@@ -52,4 +52,3 @@ class Help extends Table
         }  
     }    
 }
-?>

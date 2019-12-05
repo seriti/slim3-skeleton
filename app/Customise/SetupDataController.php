@@ -17,7 +17,7 @@ class SetupDataController
 
     public function __invoke($request, $response, $args)
     {
-        $module = $this->container->config->get('module','saveme');   
+        $module = $this->container->config->get('module','custom');   
         $setup = new SetupData($this->container->mysql,$this->container->system,$module);
        
         $setup->setupSql();

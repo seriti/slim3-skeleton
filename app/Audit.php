@@ -41,5 +41,3 @@ class Audit extends Table
         $this->addSelect($this->audit_cols['action'],$sql);
     }
 }
-?>
-                        

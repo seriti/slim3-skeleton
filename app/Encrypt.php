@@ -185,7 +185,4 @@ class Encrypt
         return $html;
     }
 
-}    
-
-?>
-
+}

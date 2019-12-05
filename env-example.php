@@ -40,6 +40,7 @@ define('MAIL_ENABLED',true);
 define('MAIL_FORMAT','text');
 define('MAIL_METHOD','smtp');
 define('MAIL_CHARSET','UTF-8');
+define('MAIL_SUPPORT','support@yourdomain.com');
 define('MAIL_FROM','from@yourdomain.com');
 define('MAIL_TO','to@yourdomain.com');
 define('MAIL_WEBMASTER','webmaster@yourdomain.com');

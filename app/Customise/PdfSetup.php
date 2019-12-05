@@ -886,5 +886,3 @@ class PdfSetup
     }    
 
 }
-?>
-

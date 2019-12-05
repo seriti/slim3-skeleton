@@ -41,7 +41,3 @@ class SiteSetup extends SetupModule
         $this->addDefault('IMAGE','LOGIN_IMAGE','Login page image',$param);
     }    
 }
-
-        
-
-?>

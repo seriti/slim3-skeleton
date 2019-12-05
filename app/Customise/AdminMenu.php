@@ -106,5 +106,3 @@ class AdminMenu extends Tree
 
     }
 }
-
-?>

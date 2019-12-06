@@ -8,7 +8,7 @@ $app->getContainer()['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         //$response = new \Slim\Http\Response(404);
         //return $response->write("Page not found!");
-        return $response->withRedirect('/login');
+        return $response->withRedirect('/');
     };
 };
 
@@ -45,6 +45,7 @@ $app->group('/admin', function () {
     $this->any('/user', \App\UserController::class);
     $this->any('/audit', \App\AuditController::class);
     $this->any('/encrypt', \App\EncryptController::class);
+    $this->any('/backup', \App\BackupController::class);
 
     $this->group('/custom', function () {
         $this->any('/menu', \App\Customise\AdminMenuController::class);

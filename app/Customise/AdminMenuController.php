@@ -23,8 +23,7 @@ class AdminMenuController
         if($this->container->user->getAccessLevel() !== 'GOD') {
             $template['html'] = '<h1>Insufficient access rights!</h1>';
         } else {  
-            $module = $this->container->config->get('module','custom');        
-            $table = $module['table_prefix'].'menu';
+            $table = TABLE_PREFIX.'menu';
 
             $tree = new AdminMenu($this->container->mysql,$this->container,$table);
 

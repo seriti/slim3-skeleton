@@ -2,9 +2,9 @@
 namespace App\Customise;
 
 use Psr\Container\ContainerInterface;
-use App\Customise\Help;
+use App\Customise\Content;
 
-class HelpController
+class ContentController
 {
     protected $container;
     
@@ -15,15 +15,15 @@ class HelpController
 
     public function __invoke($request, $response, $args)
     {
-        $table = TABLE_PREFIX.'help';
+        $table = TABLE_PREFIX.'content';
         
-        $table = new Help($this->container->mysql,$this->container,$table);
+        $table = new Content($this->container->mysql,$this->container,$table);
 
         $table->setup();
         $html = $table->processTable();
         
         $template['html'] = $html;
-        $template['title'] = MODULE_LOGO.' Help content';
+        $template['title'] = MODULE_LOGO.'Custom content';
         
         return $this->container->view->render($response,'admin.php',$template);
     }

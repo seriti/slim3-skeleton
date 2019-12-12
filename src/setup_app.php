@@ -2,7 +2,7 @@
 //START ADMIN WEBSITE application settings
 //Application system menu options for GOD access only
 //key = route from web root, value = menu text
-define('SYSTEM_MENU',['admin/custom/menu'=>'Admin Customisation module',
+define('SYSTEM_MENU',['admin/custom/dashboard'=>'Admin Customisation module',
                       'admin/user'=>'Admin Users',
                       'admin/audit'=>'Admin User audit',
                       'admin/backup'=>'Backups']);
@@ -94,7 +94,7 @@ $container['config']->set('user','zone',['ALL','ADMIN','PUBLIC'],true);
 //Application module setup
 $container['config']->set('module','custom',['name'=>'Customise',
                                              'route_root'=>'admin/custom/',
-                                             'route_list'=>['menu'=>'Menu items','pdf'=>'PDF layout','setup'=>'Site setup'],
+                                             'route_list'=>['dashboard'=>'Dashboard','menu'=>'Menu items','pdf'=>'PDF layout','setup'=>'Site setup','help'=>'Help','content'=>'Content'],
                                              'table_prefix'=>'cus_'
                                             ]);
 

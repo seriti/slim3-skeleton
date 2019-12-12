@@ -18,8 +18,6 @@ class PdfSetupController
 
     public function __invoke($request, $response, $args)
     {
-        $module = $this->container->config->get('module','custom');  
-
         $template['title'] = MODULE_LOGO.'Admin PDF customise';
         if($this->container->user->getAccessLevel() !== 'GOD') {
             $template['html'] = '<h1>Insufficient access rights!</h1>';

@@ -8,7 +8,7 @@ class SetupData extends SetupModuledata
 
     public function setupSql()
     {
-        $this->tables = ['menu'];
+        $this->tables = ['menu','help','content'];
 
         $this->addCreateSql('menu',
                             'CREATE TABLE `TABLE_NAME` (
@@ -38,12 +38,27 @@ class SetupData extends SetupModuledata
                               PRIMARY KEY (`id`)
                             ) ENGINE = MyISAM DEFAULT CHARSET = utf8');
 
+        $this->addCreateSql('content',
+                            'CREATE TABLE `TABLE_NAME` (
+                              `content_id` VARCHAR(64) NOT NULL,
+                              `type_id` VARCHAR(64) NOT NULL,
+                              `text_markdown` TEXT NOT NULL,
+                              `text_html` TEXT NOT NULL,
+                              `info` VARCHAR(255) NOT NULL,
+                              `status` VARCHAR(64) NOT NULL,
+                              PRIMARY KEY (`content_id`)
+                            ) ENGINE = MyISAM DEFAULT CHARSET = utf8');
+
         //initialisation
         $this->addInitialSql('INSERT INTO `TABLE_PREFIXmenu` (id_parent,title,level,lineage,menu_link,menu_type,menu_access) '.
                              'VALUES("0","Dashboard","1","","admin/dashboard","LINK_SYSTEM",VIEW")');
         
-
+        
         //updates use time stamp in ['YYYY-MM-DD HH:MM'] format, must be unique and sequential
         //$this->addUpdateSql('YYYY-MM-DD HH:MM','Update TABLE_PREFIX--- SET --- "X"');
+        
+        //updates use time stamp in ['YYYY-MM-DD HH:MM'] format, must be unique and sequential
+        $this->addUpdateSqlFile('2019-12-12 19:50',__DIR__.'/help.sql','Help basic setup');
+    
     }
 }

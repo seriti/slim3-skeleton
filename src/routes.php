@@ -43,14 +43,19 @@ $app->group('/admin', function () {
     $this->get('/dashboard', \App\DashboardController::class);
 
     $this->any('/user', \App\UserController::class);
+    $this->any('/help', \App\HelpController::class);
     $this->any('/audit', \App\AuditController::class);
     $this->any('/encrypt', \App\EncryptController::class);
     $this->any('/backup', \App\BackupController::class);
 
     $this->group('/custom', function () {
+        $this->any('/dashboard', \App\Customise\DashboardController::class);
         $this->any('/menu', \App\Customise\AdminMenuController::class);
+        $this->any('/content', \App\Customise\ContentController::class);
         $this->any('/pdf', \App\Customise\PdfSetupController::class);
         $this->any('/setup', \App\Customise\SiteSetupController::class);
+        $this->get('/setup_data', \App\Customise\SetupDataController::class);
+        $this->any('/help', \App\Customise\HelpController::class);
         $this->post('/ajax', \App\Customise\Ajax::class);
     })->add(\App\Customise\Config::class);
 

@@ -11,8 +11,8 @@ class Backup extends BackupTool
 
         //$param['source']='LOCAL'; this will backup to local path
         //$param['path_backup']=''; 
-        $param['source']='AMAZON';
-        $param['bucket']=AWS_S3_BUCKET;
+        $param['source'] = 'AMAZON';
+        $param['bucket'] = AWS_S3_BUCKET;
         //not used for AMAZON source but required and not normally a constant UPLOAD_BACKUP
         $param['path_backup'] = '';
         //other baths set top contstant defaults BASE_UPLOAD.UPLOAD_DOCS & UPLOAD_TEMP

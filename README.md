@@ -58,6 +58,8 @@ Now goto URL:
 OR  
 "http://www.yourdomain.com/" if you have configured a domain on your server  
 
+If you have installed this skeleton before on same machine, then you may receive a MySQL database error as the framework tries to access non-existent tables.
+If this happens then assume the webserver is ok and just access "/setup" as detailed below.
 
 ## Setup database tables
 

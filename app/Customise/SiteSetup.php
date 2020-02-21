@@ -30,13 +30,13 @@ class SiteSetup extends SetupModule
 
         $param = [];
         $param['info'] = 'Select the image you would like to use as an icon at top left of main menu (max 50KB)';
-        $param['max_size'] = 50000;
+        $param['max_size'] = 100000;
         $param['value'] = 'images/sunflower64.png';
         $this->addDefault('IMAGE','MENU_IMAGE','Main menu icon',$param);
 
         $param = [];
         $param['info'] = 'Select the image you would like to appear at top of login form (max 50KB)';
-        $param['max_size'] = 50000;
+        $param['max_size'] = 100000;
         $param['value'] = 'images/sunflower64.png';
         $this->addDefault('IMAGE','LOGIN_IMAGE','Login page image',$param);
     }    

@@ -36,6 +36,9 @@ $app->any('/login', \App\LoginController::class);
 //for cronjob backups
 $app->get('/backup', \App\BackupCronController::class);
 
+//required by contact manager module
+$app->get('/contact', \App\Contact\ContactPublicController::class);
+
 //display system errors, not currently used as Slim3 
 $app->get('/error', \App\ErrorController::class);
 

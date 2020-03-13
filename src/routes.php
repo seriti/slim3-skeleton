@@ -66,6 +66,10 @@ $app->group('/admin', function () {
         $this->post('/ajax', \App\Customise\Ajax::class);
     })->add(\App\Customise\Config::class);
 
+    $this->group('/data', function () {
+        $this->any('/import_csv', \App\Data\ImportCsvWizardController::class);
+    });
+
     //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
     //and file details are inserted into relevant form data for processing 
     $this->any('/upload', \App\UploadTempController::class);

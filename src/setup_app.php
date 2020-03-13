@@ -5,7 +5,8 @@
 define('SYSTEM_MENU',['admin/custom/dashboard'=>'Admin Customisation module',
                       'admin/user'=>'Admin Users',
                       'admin/audit'=>'Admin User audit',
-                      'admin/backup'=>'Backups']);
+                      'admin/backup'=>'Backups',
+                      'admin/data/import_csv'=>'CSV data import',]);
 
 //Application layout setup
 $theme = $container['system']->getDefault('SITE_THEME','DEFAULT');

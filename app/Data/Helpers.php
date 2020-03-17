@@ -47,15 +47,22 @@ class Helpers {
         return $tables;
     } 
 
-    public static function getAllTableCols($db,$table)
+    public static function getAllTableCols($db,$table,$param = [])
     {
         $table_cols = [];
+        if(!isset($param['type'])) $param['type'] = false;
+        if(!isset($param['key'])) $param['key'] = false;
 
         $sql = 'SHOW COLUMNS FROM '.$table;
         $cols = $db->readSqlArray($sql); 
         foreach($cols as $col_id => $col) {
             $col_id = str_replace('.','_',$col_id);
-            $table_cols[$col_id] = $col_id.':'.$col['Type'].$col['Key'];
+
+            $desc = $col_id;
+            if($param['type']) $desc.': '.$col['Type'];
+            if($param['key']) $desc.': '.$col['Key'];
+            
+            $table_cols[$col_id] = $desc;
         }
 
         return $table_cols; 

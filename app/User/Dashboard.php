@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Seriti\Tools\Dashboard AS DashboardTool;
 use Seriti\Tools\BASE_URL;

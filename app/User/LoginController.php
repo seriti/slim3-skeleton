@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Psr\Container\ContainerInterface;
 

@@ -1,5 +1,5 @@
 <?php 
-namespace App;
+namespace App\Data;
 
 use Seriti\Tools\Date;
 use Seriti\Tools\Form;

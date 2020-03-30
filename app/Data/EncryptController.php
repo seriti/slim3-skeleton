@@ -1,8 +1,10 @@
 <?php
-namespace App;
+namespace App\Data;
+
+use Seriti\Tools\ENCRYPT_ROUTE;
 
 use Psr\Container\ContainerInterface;
-use App\Encrypt;
+use App\Data\Encrypt;
 
 class EncryptController
 {
@@ -23,8 +25,8 @@ class EncryptController
         $menu = $this->container->menu;
         
         $system = []; //can specify any GOD access system menu items
-        $options['logo_link'] = BASE_URL.'admin/dashboard';
-        $options['active_link'] = 'admin/encrypt';
+        $options['logo_link'] = BASE_URL.'admin/user/dashboard';
+        $options['active_link'] = ENCRYPT_ROUTE;
         $menu_html = $menu->buildMenu($system,$options);
         $this->container->view->addAttribute('menu',$menu_html); 
 

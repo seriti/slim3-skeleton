@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace App\Data;
 
 use Psr\Container\ContainerInterface;
-use App\Backup;
+use App\Data\Backup;
 use Seriti\Tools\TABLE_BACKUP;
 
 //must be called from same server 

@@ -1,5 +1,5 @@
 <?php 
-namespace App;
+namespace App\User;
 
 use Psr\Container\ContainerInterface;
 use Seriti\Tools\BASE_URL;
@@ -58,7 +58,7 @@ class ConfigAdmin
         if(!$valid) return $response->withRedirect('/'.$redirect_route);
         
         $system = []; //can specify any GOD access system menu items
-        $menu_options['logo_link'] = BASE_URL.'admin/dashboard';
+        $menu_options['logo_link'] = BASE_URL.'admin/user/dashboard';
         $menu_options['active_link'] = URL_CLEAN;
         $menu_html = $menu->buildMenu($system,$menu_options);
         $this->container->view->addAttribute('menu',$menu_html);

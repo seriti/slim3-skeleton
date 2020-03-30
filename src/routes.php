@@ -29,31 +29,28 @@ if(SETUP_APP === false) {
 }    
 //*** END COMMENT OUT *** 
 
-//*** BEGIN admin access ***
+
 //NB: must be outside /admin route as Auth middleware will create infinite loop
-$app->any('/login', \App\LoginController::class);
-
-//for cronjob backups
-$app->get('/backup', \App\BackupCronController::class);
-
-//required by contact manager module
+$app->any('/login', \App\User\LoginController::class);
+//required by contact manager module for subscription management
 $app->get('/contact', \App\Contact\ContactPublicController::class);
-
 //display system errors, not currently used as Slim3 
 $app->get('/error', \App\ErrorController::class);
 
+
+//*** BEGIN admin access ***
 $app->group('/admin', function () {
 
     //where url: abc.com/admin or abc.com/admin/ 
-    $this->redirect('', '/admin/dashboard', 301);
-    $this->redirect('/', 'dashboard', 301);
-    $this->get('/dashboard', \App\DashboardController::class);
-
-    $this->any('/user', \App\UserController::class);
-    $this->any('/help', \App\HelpController::class);
-    $this->any('/audit', \App\AuditController::class);
-    $this->any('/encrypt', \App\EncryptController::class);
-    $this->any('/backup', \App\BackupController::class);
+    $this->redirect('', '/admin/user/dashboard', 301);
+    $this->redirect('/', 'user/dashboard', 301);
+    $this->redirect('/dashboard', 'user/dashboard', 301);
+    
+    //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
+    $this->any('/upload', \App\Data\UploadTempController::class);
+    //generic ajax for csv download and other common tasks 
+    $this->get('/ajax', \App\Data\Ajax::class);
+    
 
     $this->group('/custom', function () {
         $this->any('/dashboard', \App\Customise\DashboardController::class);
@@ -67,15 +64,20 @@ $app->group('/admin', function () {
     })->add(\App\Customise\Config::class);
 
     $this->group('/data', function () {
+        $this->get('/ajax', \App\Data\Ajax::class);
         $this->any('/import_csv', \App\Data\ImportCsvWizardController::class);
+        $this->any('/backup', \App\Data\BackupController::class);
+        $this->any('/encrypt', \App\Data\EncryptController::class);
     });
 
-    //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
-    //and file details are inserted into relevant form data for processing 
-    $this->any('/upload', \App\UploadTempController::class);
+    $this->group('/user', function () {
+        $this->get('/dashboard', \App\User\DashboardController::class);
+        $this->any('/user', \App\User\UserController::class);
+        $this->any('/help', \App\User\HelpController::class);
+        $this->any('/audit', \App\User\AuditController::class);
+        $this->any('/report', \App\User\ReportController::class);
+    });    
     
-    //generic ajax for csv download and other common tasks 
-    $this->get('/ajax', \App\Ajax::class);
 })->add(\App\ConfigAdmin::class);
 //*** END admin access ***
 

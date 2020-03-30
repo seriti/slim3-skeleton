@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Seriti\Tools\Table;
 use Seriti\Tools\Crypt;

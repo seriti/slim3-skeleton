@@ -3,9 +3,10 @@
 //Application system menu options for GOD access only
 //key = route from web root, value = menu text
 define('SYSTEM_MENU',['admin/custom/dashboard'=>'Admin Customisation module',
-                      'admin/user'=>'Admin Users',
-                      'admin/audit'=>'Admin User audit',
-                      'admin/backup'=>'Backups',
+                      'admin/user/user'=>'Admin Users',
+                      'admin/user/audit'=>'Admin User audit',
+                      'admin/user/report'=>'Admin User reports',
+                      'admin/data/backup'=>'Backups',
                       'admin/data/import_csv'=>'CSV data import',]);
 
 //Application layout setup

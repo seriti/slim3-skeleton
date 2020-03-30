@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Psr\Container\ContainerInterface;
-use App\Audit;
+use App\User\Audit;
 use Seriti\Tools\TABLE_AUDIT;
 
 class AuditController
@@ -29,13 +29,13 @@ class AuditController
             $menu = $this->container->menu;
             
             $system = []; //can specify any GOD access system menu items
-            $options['logo_link'] = BASE_URL.'admin/dashboard';
-            $options['active_link'] = 'admin/audit';
+            $options['logo_link'] = BASE_URL.'admin/user/dashboard';
+            $options['active_link'] = 'admin/user/audit';
             $menu_html = $menu->buildMenu($system,$options);
             $this->container->view->addAttribute('menu',$menu_html); 
 
             $template['html'] = $html;
-            $template['title'] = 'Admin user audit';
+            $template['title'] = 'All users audit trail';
         }    
 
         return $this->container->view->render($response,'admin.php',$template);

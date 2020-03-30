@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Data;
 
 use Psr\Container\ContainerInterface;
 use Seriti\Tools\Secure;

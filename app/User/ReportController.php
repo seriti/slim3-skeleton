@@ -1,10 +1,11 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Psr\Container\ContainerInterface;
-use App\Help;
 
-class HelpController
+use App\User\Report;
+
+class ReportController
 {
     protected $container;
     
@@ -17,16 +18,15 @@ class HelpController
 
     public function __invoke($request, $response, $args)
     {
+        $report = new Report($this->container->mysql,$this->container);
         
-        $module = $this->container->config->get('module','custom');
-        $table = $module['table_prefix'].'help';
-        $help = new Help($this->container->mysql,$this->container,$table);
-        
-        $html = $help->getHelp();
-        
+        $report->setup();
+        $html = $report->process();
+
         $template['html'] = $html;
-        $template['title'] =  SITE_NAME.': Help topics';
-        
+        $template['title'] = 'All Admin user reports';
+        $template['javascript'] = $report->getJavascript();
+
         return $this->container->view->render($response,'admin.php',$template);
     }
 }

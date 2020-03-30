@@ -62,13 +62,18 @@ define('BASE_PATH',BASE_DIR_PUBLIC);
 define('BASE_UPLOAD_WWW','files/');
 //relative to public_html(BASE_PATH) folder, for any asset/css/js 
 define('BASE_INCLUDE','include/');
-
 //absolute path to template folder, BASE_DIR should be defined in public_html/index.php
 define('BASE_TEMPLATE',BASE_DIR.'templates/');
+
 //absolute path to base storage folder (normally  outside of public_html folder)
 define('BASE_UPLOAD',BASE_DIR.'storage/');
 define('UPLOAD_DOCS','docs/');
 define('UPLOAD_TEMP','temp/');
+define('UPLOAD_ROUTE','/admin/upload');
+
+//generic routes where not module specific
+define('AJAX_ROUTE','/admin/data/ajax');
+define('ENCRYPT_ROUTE','/admin/data/encrypt');
 
 //http root pointing at public_html folder 
 if($_SERVER['SERVER_NAME'] === 'localhost') { //DEVELOPMENT

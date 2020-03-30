@@ -39,10 +39,10 @@ class Ajax
         
         switch($menu_type) {
             case 'LINK_SYSTEM':
-                $links['admin/dashboard'] = 'Home dashboard';
-                $links['admin/help'] = 'Help';
-                $links['admin/user'] = 'Admin users';
-                $links['admin/audit'] = 'Audit trail';
+                $links['admin/user/dashboard'] = 'Home dashboard';
+                $links['admin/user/help'] = 'Help';
+                $links['admin/user/user'] = 'Admin users';
+                $links['admin/user/audit'] = 'Audit trail';
                 break;
             default:
                 $modules = $this->container->config->get('module');  

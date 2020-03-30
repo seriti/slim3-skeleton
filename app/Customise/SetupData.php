@@ -51,7 +51,7 @@ class SetupData extends SetupModuledata
 
         //initialisation
         $this->addInitialSql('INSERT INTO `TABLE_PREFIXmenu` (id_parent,title,level,lineage,menu_link,menu_type,menu_access) '.
-                             'VALUES("0","Dashboard","1","","admin/dashboard","LINK_SYSTEM",VIEW")');
+                             'VALUES("0","Dashboard","1","","admin/user/dashboard","LINK_SYSTEM",VIEW")');
         
         
         //updates use time stamp in ['YYYY-MM-DD HH:MM'] format, must be unique and sequential

@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace App\User;
 
 use Psr\Container\ContainerInterface;
-use App\User;
+use App\User\User;
 use Seriti\Tools\TABLE_USER;
 
 class UserController
@@ -29,8 +29,8 @@ class UserController
             $menu = $this->container->menu;
             
             $system = []; //can specify any GOD access system menu items
-            $options['logo_link'] = BASE_URL.'admin/dashboard';
-            $options['active_link'] = 'admin/user';
+            $options['logo_link'] = BASE_URL.'admin/user/dashboard';
+            $options['active_link'] = 'admin/user/user';
             $menu_html = $menu->buildMenu($system,$options);
             $this->container->view->addAttribute('menu',$menu_html); 
 

@@ -405,4 +405,5 @@ function copy_to_clipboard(div_id) {
   tempTextArea.select();
   document.execCommand("Copy");
   tempTextArea.remove();
+  alert('Successfully copied text to clipboard. Right click and select "paste", or keystrokes [Ctrl][V] to paste into desired location');
 }

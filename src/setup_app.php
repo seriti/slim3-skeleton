@@ -94,7 +94,7 @@ if($theme === 'DEFAULT') {
 $container['config']->set('user','zone',['ALL','ADMIN','PUBLIC'],true);
 
 //Application module setup
-$container['config']->set('module','custom',['name'=>'Customise',
+$container['config']->set('module','custom',['name'=>'Customise admin',
                                              'route_root'=>'admin/custom/',
                                              'route_list'=>['dashboard'=>'Dashboard','menu'=>'Menu items','pdf'=>'PDF layout','setup'=>'Site setup','help'=>'Help','content'=>'Content'],
                                              'table_prefix'=>'cus_'

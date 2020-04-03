@@ -34,7 +34,7 @@ if(SETUP_APP === false) {
 $app->any('/login', \App\User\LoginController::class);
 //required by contact manager module for subscription management
 $app->get('/contact', \App\Contact\ContactPublicController::class);
-//display system errors, not currently used as Slim3 
+//display system errors, not currently used as Slim3 handles errors
 $app->get('/error', \App\ErrorController::class);
 
 
@@ -46,12 +46,6 @@ $app->group('/admin', function () {
     $this->redirect('/', 'user/dashboard', 301);
     $this->redirect('/dashboard', 'user/dashboard', 301);
     
-    //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
-    $this->any('/upload', \App\Data\UploadTempController::class);
-    //generic ajax for csv download and other common tasks 
-    $this->get('/ajax', \App\Data\Ajax::class);
-    
-
     $this->group('/custom', function () {
         $this->any('/dashboard', \App\Customise\DashboardController::class);
         $this->any('/menu', \App\Customise\AdminMenuController::class);
@@ -64,10 +58,13 @@ $app->group('/admin', function () {
     })->add(\App\Customise\Config::class);
 
     $this->group('/data', function () {
+        //generic ajax for csv download and other common tasks 
         $this->get('/ajax', \App\Data\Ajax::class);
         $this->any('/import_csv', \App\Data\ImportCsvWizardController::class);
         $this->any('/backup', \App\Data\BackupController::class);
         $this->any('/encrypt', \App\Data\EncryptController::class);
+        //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
+        $this->any('/upload', \App\Data\UploadTempController::class);
     });
 
     $this->group('/user', function () {
@@ -78,7 +75,7 @@ $app->group('/admin', function () {
         $this->any('/report', \App\User\ReportController::class);
     });    
     
-})->add(\App\ConfigAdmin::class);
+})->add(\App\User\ConfigAdmin::class);
 //*** END admin access ***
 
 

@@ -12,6 +12,9 @@ After you have successfully installed the skeleton, there are several modules wh
 * https://github.com/seriti/contact-manager
 * https://github.com/seriti/general-ledger
 * https://github.com/seriti/asset-manager
+* https://github.com/seriti/public-auction
+* https://github.com/seriti/public-website
+* https://github.com/seriti/public-shop
 
 
 ## Install the Application

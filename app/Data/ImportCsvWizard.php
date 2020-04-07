@@ -53,7 +53,7 @@ class ImportCsvWizard extends Wizard
         $this->addVariable(array('id'=>'csv_format','type'=>'STRING','title'=>'CSV File format'));
         $this->addVariable(array('id'=>'csv_file','type'=>'STRING','title'=>'CSV File Path'));
         //use these to set a table field with import details so can identify imports for reversal or whatever
-        $this->addVariable(array('id'=>'import_flag','type'=>'BOOLEAN','title'=>'Set import flag so can reverse import','new'=>true));
+        $this->addVariable(array('id'=>'import_flag','type'=>'BOOLEAN','title'=>'Set import flag so can reverse import','new'=>false));
         $this->addVariable(array('id'=>'import_flag_field','type'=>'STRING','title'=>'Table field to store import flag value','new'=>'import_flag'));
         $this->addVariable(array('id'=>'import_flag_value','type'=>'STRING','title'=>'Unique Import flag value to identify imported data','new'=>date('Y-m-d')));
         

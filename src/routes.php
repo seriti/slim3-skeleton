@@ -80,6 +80,10 @@ $app->group('/admin', function () {
 
 
 //*** BEGIN public access ***
+
+//If no public access then uncomment below to redirect to admin
+//$app->redirect('/', '/admin', 301);
+
 $app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Seriti Slim3-Skeleton framework '/' route");

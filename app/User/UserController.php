@@ -35,7 +35,7 @@ class UserController
             $this->container->view->addAttribute('menu',$menu_html); 
 
             $template['html'] = $html;
-            $template['title'] = 'Admin users';
+            $template['title'] = 'All system users';
         }    
 
         return $this->container->view->render($response,'admin.php',$template);

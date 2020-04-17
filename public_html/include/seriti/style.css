@@ -25,10 +25,27 @@ body {
 }
 
 /*************************************/
-/* ALL SERITI FRAMEWORK LOGIN  STYLES*/
+/* ALL SERITI FRAMEWORK STYLES*/
 /*************************************/
 
+.display_hidden {
+   display:none;
+}
+
 #menu_div{}
+
+.menu_icon{
+    float: right;
+    padding-top:10px;
+    padding-right:10px;
+    font-size: 16px;
+    color: #333;
+}
+
+#menu_search {
+    padding-top:8px;
+    padding-right:4px;
+}
 
 #title_div{}
 
@@ -468,7 +485,17 @@ use .row and .row_alt to override bootstrap settings
 
 /**** experimental for public lists***/
 .list_items_row {
-   margin-bottom:10px;
+   padding-bottom:10px;
+   padding-top:10px;
+   /*border-bottom: 1px solid #cccccc;*/
+}
+
+.list_items_row:nth-of-type(odd){
+  background-color: #efefef;
+}
+
+.list_items_row:nth-of-type(even){
+  background-color: #ffffff;
 }
 
 .list_item_title {

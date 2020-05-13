@@ -36,6 +36,9 @@ $app->any('/login', \App\User\LoginController::class);
 $app->get('/contact', \App\Contact\ContactPublicController::class);
 //display system errors, not currently used as Slim3 handles errors
 $app->get('/error', \App\ErrorController::class);
+//for cronjob backups where called from SAME server without authetication
+//$app->get('/backup', \App\Data\BackupCronController::class);
+
 
 
 //*** BEGIN admin access ***

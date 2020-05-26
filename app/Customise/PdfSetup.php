@@ -56,7 +56,7 @@ class PdfSetup
         $date_array=array('DD-MM-YYYY','DD-MMM-YYYY','MM-DD-YYYY','MMM-DD-YYYY','MMMYY','MMM-YYYY');
         $font_face=array('arial'=>'Arial','times'=>'Times new roman','helvetica'=>'Helvetica','courier'=>'Courier');
         $font_style=array('N'=>'Normal','B'=>'Bold','I'=>'Italic','U'=>'Underline');
-        $font_size=array(8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36);
+        $font_size=array(6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36);
 
         $text_align=array('L'=>'Left','R'=>'Right','C'=>'Center');
 

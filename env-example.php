@@ -7,6 +7,7 @@ define('SETUP_APP',false); //make true once app setup and required database tabl
 define('DEBUG',true); //make false in production
 define('AUDIT',true);
 define('STORAGE','local'); // use 'amazon' if you wish to store documents in an amazon s3 bucket as specified below
+define('STORAGE_WWW','local');
 define('CURRENCY_SYMBOL','R');
 define('CURRENCY_ID','ZAR');
 

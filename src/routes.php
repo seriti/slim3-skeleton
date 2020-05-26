@@ -66,7 +66,7 @@ $app->group('/admin', function () {
         $this->any('/import_csv', \App\Data\ImportCsvWizardController::class);
         $this->any('/backup', \App\Data\BackupController::class);
         $this->any('/encrypt', \App\Data\EncryptController::class);
-        //generic "admin/upload" for multiple file upload where files are uploaded to temp folder 
+        //generic "admin/data/upload" for multiple file upload where files are uploaded to temp folder 
         $this->any('/upload', \App\Data\UploadTempController::class);
     });
 

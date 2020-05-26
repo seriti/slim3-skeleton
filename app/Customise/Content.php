@@ -39,7 +39,7 @@ class Content extends Table
         $this->setupFiles(array('table'=>TABLE_PREFIX.'files','location'=>'CONTENT','max_no'=>100,
                                 'icon'=>'<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;&nbsp;manage',
                                 'list'=>false,'list_no'=>1,'storage'=>STORAGE,
-                                'link_page'=>'page_file','link_data'=>'SIMPLE','width'=>'700','height'=>'600'));
+                                'link_url'=>'page_file','link_data'=>'SIMPLE','width'=>'700','height'=>'600'));
         */
 
         

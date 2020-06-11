@@ -70,7 +70,7 @@ define('BASE_TEMPLATE',BASE_DIR.'templates/');
 define('BASE_UPLOAD',BASE_DIR.'storage/');
 define('UPLOAD_DOCS','docs/');
 define('UPLOAD_TEMP','temp/');
-define('UPLOAD_ROUTE','/admin/upload');
+define('UPLOAD_ROUTE','/admin/data/upload');
 
 //generic routes where not module specific
 define('AJAX_ROUTE','/admin/data/ajax');

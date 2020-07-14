@@ -181,6 +181,8 @@ class ImportCsvWizard extends Wizard
             } else {
                 //process import for real, Errors are included in result.
                 $this->data['import_result'] = $import->importCsvData();
+                //this will show any existing record details
+                $this->messages = array_merge($import->getMessages(),$this->messages);
             }
          
         } 

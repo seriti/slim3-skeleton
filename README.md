@@ -15,6 +15,7 @@ After you have successfully installed the skeleton, there are several modules wh
 * https://github.com/seriti/public-auction
 * https://github.com/seriti/public-website
 * https://github.com/seriti/public-shop
+* https://github.com/seriti/bucket-list
 
 
 ## Install the Application

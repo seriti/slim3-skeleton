@@ -68,11 +68,14 @@ $app->group('/admin', function () {
         $this->any('/encrypt', \App\Data\EncryptController::class);
         //generic "admin/data/upload" for multiple file upload where files are uploaded to temp folder 
         $this->any('/upload', \App\Data\UploadTempController::class);
+        //update any system tables
+        $this->get('/setup', \App\Data\SetupDataController::class);
     });
 
     $this->group('/user', function () {
         $this->get('/dashboard', \App\User\DashboardController::class);
         $this->any('/user', \App\User\UserController::class);
+        $this->any('/user_route', \App\User\UserRouteController::class);
         $this->any('/help', \App\User\HelpController::class);
         $this->any('/audit', \App\User\AuditController::class);
         $this->any('/report', \App\User\ReportController::class);

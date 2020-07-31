@@ -21,6 +21,7 @@ define('DB_CHARSET','utf8');
 //System table names to be used by framework, setup process will create them
 define('TABLE_SYSTEM','system');
 define('TABLE_USER','user_admin');
+define('TABLE_ROUTE','user_route');
 define('TABLE_TOKEN','user_token');
 define('TABLE_CACHE','cache');
 define('TABLE_BACKUP','backup');

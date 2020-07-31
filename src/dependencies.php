@@ -55,7 +55,8 @@ $container['user'] = function ($c) {
     $table = Seriti\Tools\TABLE_USER;
     $user = new Seriti\Tools\User($c->mysql,$c,$table);
     //ADMIN,ALL,PUBLIC are user zones => default route for that zone.
-    $param = ['route_login'=>'login','route_default'=>['ADMIN'=>'admin/user/dashboard','ALL'=>'admin/user/dashboard','PUBLIC'=>'public/account/dashboard']];
+    $param = ['route_login'=>'login',
+              'route_default'=>['ADMIN'=>'admin/user/dashboard','ALL'=>'admin/user/dashboard','PUBLIC'=>'public/account/dashboard']];
     $user->setup($param);
     return $user;
 };

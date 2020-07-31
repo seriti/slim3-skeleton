@@ -195,6 +195,9 @@ class User extends Table
         $config = $this->getContainer('config');
         $login_user = $this->getContainer('user');
 
+        //check if route access whitelist is required
+        $route_access = $config->get('user','route_access');
+
         $this->addForeignKey(array('table'=>TABLE_AUDIT,'col_id'=>'user_id','message'=>'Audit trail'));
 
         $this->addTableCol(array('id'=>'user_id','type'=>'INTEGER','title'=>'User ID','key'=>true,'key_auto'=>true,'list'=>true));
@@ -208,6 +211,10 @@ class User extends Table
                                          ADMIN allows users to add, and delete most data.<br/>
                                          USER allows users to add and edit but not delete data.<br/>
                                          VIEW allows users to see anything but not to modify or add any data!)'));
+        if($route_access) {
+            $this->addTableCol(array('id'=>'route_access','type'=>'BOOLEAN','title'=>'Access limit','hint'=>'(Check if you want to limit user to specific pages)'));
+        }
+
         $this->addTableCol(array('id'=>'password','type'=>'PASSWORD','title'=>'Password','max'=>250,'list'=>false,
                                  'hint'=>'(NB: For NEW users please note password as it will be one-way encrypted when stored!<br/>To change existing user password click "Create New" checkbox, then enter new password and Submit)'));
 
@@ -226,11 +233,26 @@ class User extends Table
         $this->addAction(array('type'=>'edit','text'=>'edit','icon_text'=>'edit'));
         $this->addAction(array('type'=>'delete','text'=>'delete','pos'=>'R','icon_text'=>'delete'));
 
-        $this->addSearch(array('user_id','name','email','access'),array('rows'=>2));
+        if($route_access) {
+            $this->addAction(array('type'=>'popup','text'=>'Allowed pages','url'=>'user_route','mode'=>'view','width'=>600,'height'=>600,'verify'=>true));
+            $this->addSearch(array('user_id','name','email','access','route_access'),array('rows'=>2));    
+        } else {
+            $this->addSearch(array('user_id','name','email','access'),array('rows'=>2));    
+        }
+        
+        
 
         $this->addSelect('zone',['list'=>$config->get('user','zone'),'list_assoc'=>false]);
         $this->addSelect('access',['list'=>$config->get('user','access'),'list_assoc'=>false]);
         $this->addSelect('status',['list'=>$config->get('user','status'),'list_assoc'=>false]);
 
+    }
+
+    protected function verifyRowAction($action,$data) 
+    {
+        $valid = false;
+        if($action['url'] === 'user_route') $valid = $data['route_access'];
+
+        return $valid;
     }
 }

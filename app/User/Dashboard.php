@@ -16,10 +16,11 @@ class Dashboard extends DashboardTool
 
         $login_user = $this->getContainer('user'); 
         $config = $this->getContainer('config'); 
+        $access = $login_user->getAccessLevel();
 
         //(block_id,col,row,title)
         $this->addBlock('USER',1,1,'Your information');
-        $this->addItem('USER','Access level:'.$login_user->getAccessLevel());
+        $this->addItem('USER','Access level:'.$access);
         $this->addItem('USER','Email :'.$login_user->getEmail());
 
         $this->addBlock('MODULES',1,2,'Available modules');
@@ -28,6 +29,11 @@ class Dashboard extends DashboardTool
             $route = Calc::getArrayFirst($module['route_list']);
             $link = BASE_URL.$module['route_root'].$route['key'];
             $this->addItem('MODULES',$module['name'],['link'=>$link]);
+        }
+
+        if($access === 'GOD') {
+            $this->addBlock('SETUP',2,1,'System database setup');
+            $this->addItem('SETUP','Update Database',['link'=>'/admin/data/setup','icon'=>'setup']);
         }
     }
 

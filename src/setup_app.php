@@ -92,6 +92,8 @@ if($theme === 'DEFAULT') {
 
 //User access zone setup
 $container['config']->set('user','zone',['ALL','ADMIN','PUBLIC'],true);
+//Uncomment to allow user route whitelist access configuration
+//$container['config']->set('user','route_access',true,true);
 
 //Application module setup
 $container['config']->set('module','custom',['name'=>'Customise admin',

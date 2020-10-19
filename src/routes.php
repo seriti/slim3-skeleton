@@ -30,6 +30,9 @@ if(SETUP_APP === false) {
 //*** END COMMENT OUT *** 
 
 
+//NB: ONLY USE IN DEVELOPMENT TO CREATE BASE CLASSES FOR A MODULE. Edit controller file $module_id
+//$app->any('/factory', \App\Data\FactoryController::class);
+
 //NB: must be outside /admin route as Auth middleware will create infinite loop
 $app->any('/login', \App\User\LoginController::class);
 //required by contact manager module for subscription management

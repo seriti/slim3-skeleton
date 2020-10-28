@@ -131,6 +131,7 @@ class Factory
                  '<form method="post" action="?mode=create" name="create_form" id="create_form">'.
                  '<input type="submit" value="CREATE CLASS FILES FOR SELECTED TABLES">'.
                  '<p>Leave field values "NA" to ignore that option. If a table is a CHILD, select MASTER "Linked table". Any existing class files will NOT be overwritten! </p>'.
+                 '<p>Class files will be created in <b>'.$this->create_dir.'</b> using the namespace <b>'.$this->name_space.'</b></p>'.
                  '<table><tr><th>Table</th><th>Create</th><th>Type</th><th>Linked table</th><th>Files location</th><th>Images location</th><th>Xtra</th></tr>';
 
         $checked = false;
@@ -222,7 +223,7 @@ class Factory
                     $col['key'] = true;
                     if($table_col['Extra'] === 'auto_increment') $col['key_auto'] = true;
 
-                    if(substr($col_id,-3) === '_id') $col['title'] = substr($col_id,0,-2).'ID';
+                    if(substr($col_id,-3) === '_id') $col['title'] = substr($col_id,0,-3).' ID';
                 }
 
                 if(!$col['key'] and substr($col_id,-3) === '_id') {
@@ -244,6 +245,11 @@ class Factory
                 if($type=='time') $col['type'] = 'TIME';
                 if($type=='datetime') $col['type'] = 'DATETIME';
                 if($type=='tinyint(1)') $col['type'] = 'BOOLEAN';
+
+                //some refined guesses using field name
+                if($col['type'] === 'STRING' and stripos($col_id,'password') !== false) $col['type'] = 'PASSWORD';
+                if($col['type'] === 'STRING' and stripos($col_id,'email') !== false) $col['type'] = 'EMAIL';
+                if($col['type'] === 'STRING' and (stripos($col_id,'url') !== false or stripos($col_id,'www') !== false)) $col['type'] = 'URL';
 
                 $cols[$col_id] = $col;
             }
@@ -489,6 +495,8 @@ class Factory
             $str_action = '';
             $str_foreign = '';
             $indent = '        ';
+            //NB used as flag to not show this col for CHILD table
+            $master_key_col = '';
 
             //setup master
             if($_POST[$table.'type'] === 'CHILD') {
@@ -529,38 +537,39 @@ class Factory
                   '        parent::setup($param);'."\r\n\r\n";
 
             if($str_master !== '') $str .= $str_master;
-            if($str_foreign !== '') $str .= $str_foreign;
+            if($str_foreign !== '') $str .= $str_foreign."\r\n";
 
-      
+            $status_col = false;
             foreach($cols as $col_id => $col) {
-                $str .= '        $this->addTableCol('."['id'=>'".$col_id."','type'=>'".$col['type']."','title'=>'".$col['title']."'";
-                $key = false;
-                if($col['key']) {
-                    $key = true;
-                    $key_id = $col_id;
-                    $str .= ",'key'=>true";
+                $show_col = true;
+                if($col_id === $master_key_col) $show_col = false;
+
+                if($show_col) {
+                    $str .= '        $this->addTableCol('."['id'=>'".$col_id."','type'=>'".$col['type']."','title'=>'".$col['title']."'";
+                    $key = false;
+                    if($col['key']) {
+                        $key = true;
+                        $key_id = $col_id;
+                        $str .= ",'key'=>true";
+                    }    
+                    if($col['key_auto']) $str .= ",'key_auto'=>true";
+
+                    if(isset($col['join'])) {
+                        $str .= ",'join'=>'".$col['join']."'";
+                        $select[$col_id]  = $col['select'];
+                    }
+                   
+                    if($col['type'] === 'DATE') $str .= ",'new'=>date('Y-m-d')";
+
+                    if(stripos($col_id,'note') !== false or stripos($col_id,'comment') !== false) $str .= ",'required'=>false";
+
+                    $str .= "]);\r\n"; 
+
+                    if($col_id === 'status') $status_col = true;
+
+                    $search[] = $col_id; 
                 }    
-                if($col['key_auto']) $str .= ",'key_auto'=>true";
 
-                if(isset($col['join'])) {
-                    $str .= ",'join'=>'".$col['join']."'";
-                    $select[$col_id]  = $col['select'];
-                }
-
-                /*
-                if(!$key and substr($col_id,-3) === '_id') {
-                    $link_table = substr($col_id,0,-3);
-                    $str .= ",'join'=>'name FROM '.TABLE_PREFIX.'".$link_table." WHERE ".$col_id."'";
-
-                    $select[$col_id] = 'SELECT '.$col_id.", name FROM '.TABLE_PREFIX.'".$link_table." ORDER BY name"; 
-                }
-                */
-
-                if($col['type'] === 'DATE') $str .= ",'new'=>date('Y-m-d')";
-
-                $str .= "]);\r\n"; 
-
-                $search[] = $col_id; 
             }
             $str.="\r\n\r\n";
 
@@ -579,6 +588,12 @@ class Factory
                     $str.='        $this->addSelect('."'".$col_id."','".$sql."');\r\n";
                 }
             }
+
+            if($status_col) {
+               $str.='        $status = [\'OK\',\'HIDE\'];'."\r\n".
+                     '        $this->addSelect(\'status\',[\'list\'=>$status,\'list_assoc\'=>false]);'."\r\n";
+            }
+
             $str.="\r\n";
 
             if($_POST[$table.'files'] !== 'NA') {
@@ -604,13 +619,12 @@ class Factory
 
             $str.='    }'."\r\n\r\n";
 
-            $str .= '    /*** EVENT PLACEHOLDER FUNCTIONS ***/'."\r\n".
-                    '    //protected function beforeUpdate($id,$context,&$data,&$error) {}'."\r\n".
-                    '    //protected function afterUpdate($id,$context,$data) {}'."\r\n".  
-                    '    //protected function beforeDelete($id,&$error) {}'."\r\n".
-                    '    //protected function afterDelete($id) {}'."\r\n". 
-                    '    //protected function beforeValidate($col_id,&$value,&$error,$context) {}'."\r\n\r\n".
-
+            $str.='    /*** EVENT PLACEHOLDER FUNCTIONS ***/'."\r\n".
+                  '    //protected function beforeUpdate($id,$context,&$data,&$error) {}'."\r\n".
+                  '    //protected function afterUpdate($id,$context,$data) {}'."\r\n".  
+                  '    //protected function beforeDelete($id,&$error) {}'."\r\n".
+                  '    //protected function afterDelete($id) {}'."\r\n". 
+                  '    //protected function beforeValidate($col_id,&$value,&$error,$context) {}'."\r\n\r\n".
 
                   '}'."\r\n";
                 

@@ -171,9 +171,16 @@ class Factory
         
         $name['route'] = $suffix_name;
 
-        $name['row'] = ucfirst(str_replace('_',' ',$suffix_name)); 
-        $name['label'] = 'name'; //assumes that a field "name" exists;
-        $name['title'] = 'All '.$name['row'].'s';
+        $name['row'] = ucfirst(str_replace('_',' ',$suffix_name));
+
+        if(substr($name['row'],-1) === 'y') {
+            $name['row_plural'] = substr($name['row'],0,-1).'ies';
+        } else {
+            $name['row_plural'] = $name['row'].'s';
+        }    
+
+        $name['label'] = 'name'; //NB: assumes that a field "name" exists;
+        $name['title'] = 'All '.$name['row_plural'];
         $name['title_child'] = $name['row'];
 
         $name['table'] = $suffix_name;
@@ -215,7 +222,13 @@ class Factory
                 $col = [];
 
                 $col['id'] = $col_id;
-                $col['title'] = ucfirst(str_replace('_',' ',$col_id));
+                if($col_id === 'sort') {
+                    $col['title'] = 'Sort order';
+                    $col['hint'] = 'Number to indicate dropdown display order';
+                } else {
+                    $col['title'] = ucfirst(str_replace('_',' ',$col_id));    
+                }
+                
 
                 $col['key'] = false;
                 $col['key_auto'] = false;
@@ -227,6 +240,8 @@ class Factory
                 }
 
                 if(!$col['key'] and substr($col_id,-3) === '_id') {
+                    $col['title'] = substr($col['title'],0,-3);
+                    
                     $link_table = substr($col_id,0,-3);
                     $col['join'] = "name FROM '.TABLE_PREFIX.'".$link_table." WHERE ".$col_id;
                     $col['select'] = 'SELECT '.$col_id.", name FROM '.TABLE_PREFIX.'".$link_table." ORDER BY name";
@@ -533,7 +548,7 @@ class Factory
                   '{'."\r\n".
                   '    public function setup($param = []) '."\r\n".
                   '    {'."\r\n". 
-                  '        $param = '."['row_name'=>'".$name['row']."','col_label'=>'".$name['label']."','pop_up'=>".$popup."];\r\n".
+                  '        $param = '."['row_name'=>'".$name['row']."','row_name_plural'=>'".$name['row_plural']."','col_label'=>'".$name['label']."','pop_up'=>".$popup."];\r\n".
                   '        parent::setup($param);'."\r\n\r\n";
 
             if($str_master !== '') $str .= $str_master;
@@ -609,10 +624,10 @@ class Factory
             if($_POST[$table.'images'] !== 'NA') {
                 //file table location id prefix
                 $location_id_prefix = $_POST[$table.'images'];
-
-                $str.=$indent.'$this->setupFiles([\'table\'=>TABLE_PREFIX.\'file\',\'location\'=>\''.$location_id_prefix.'\',\'max_no\'=>100,'."\r\n".
+                
+                $str.=$indent.'$this->setupImages([\'table\'=>TABLE_PREFIX.\'file\',\'location\'=>\''.$location_id_prefix.'\',\'max_no\'=>10,'."\r\n".
                       $indent.'                   \'icon\'=>\'<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;manage\','."\r\n".
-                      $indent.'                   \'list\'=>true,\'list_no\'=>5,\'storage\'=>STORAGE,'."\r\n".
+                      $indent.'                   \'list\'=>true,\'list_no\'=>1,\'storage\'=>STORAGE,'."\r\n".
                       $indent.'                   \'link_url\'=>\''.$name['image_url'].'\',\'link_data\'=>\'SIMPLE\',\'width\'=>\'700\',\'height\'=>\'600\']);'."\r\n\r\n";
             }    
 

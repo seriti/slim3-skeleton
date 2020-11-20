@@ -18,6 +18,12 @@ define('DB_USER','uuuuu');
 define('DB_PASSWORD','pppppp');
 define('DB_CHARSET','utf8');
 
+//Modify password requirements here, defaults as below
+//define('PASSWORD_ALPHA_NUMERIC',true);
+//define('PASSWORD_LENGTH',8);
+//define('PASSWORD_STRONG',true);
+//define('PASSWORD_MESSAGE','Your password can only contain letters and numbers and it must be at least 8 characters long and contain at least 1 lower case, upper case and number');
+
 //System table names to be used by framework, setup process will create them
 define('TABLE_SYSTEM','system');
 define('TABLE_USER','user_admin');

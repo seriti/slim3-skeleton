@@ -22,7 +22,7 @@ class FactoryController
     public function __invoke($request, $response, $args)
     {
         //see src/setup_app.php for module names
-        $module_id = 'store';
+        $module_id = 'service';
         $factory = new Factory($this->container->mysql,$this->container,$module_id);
         
         $html = $factory->process();

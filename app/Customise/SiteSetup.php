@@ -29,13 +29,13 @@ class SiteSetup extends SetupModule
         $this->addDefault('SELECT','MENU_STYLE','Main menu style',$param);
 
         $param = [];
-        $param['info'] = 'Select the image you would like to use as an icon at top left of main menu (max 50KB)';
+        $param['info'] = 'Select the image you would like to use as an icon at top left of main menu (max 100KB)';
         $param['max_size'] = 100000;
         $param['value'] = 'images/sunflower64.png';
         $this->addDefault('IMAGE','MENU_IMAGE','Main menu icon',$param);
 
         $param = [];
-        $param['info'] = 'Select the image you would like to appear at top of login form (max 50KB)';
+        $param['info'] = 'Select the image you would like to appear at top of login form (max 100KB)';
         $param['max_size'] = 100000;
         $param['value'] = 'images/sunflower64.png';
         $this->addDefault('IMAGE','LOGIN_IMAGE','Login page image',$param);

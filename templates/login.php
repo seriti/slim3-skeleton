@@ -3,6 +3,26 @@ namespace App;
 
 use Seriti\Tools\Form;
 
+$register_link = false;
+
+function show_info($id) {
+  $html = '';
+    
+  $info = ['register'=>'If you are not already registered with us as a user then click above link to register. NB: you cannot register with the same email twice. Please use the [Send me a login link] or [Reset my password] options below if you are already a registered user.',
+           'reset'=>'Enter your email address above and click [Reset my password] button to be emailed a reset password link. You will need to be a registered user already.',
+           'login_link'=>'Enter your email address above and click [Send me a login link] button to be emailed a login link. You will need to be a registered user already.'
+          ];  
+  
+  if(isset($info[$id])) {  
+    $html .= '&nbsp;<a href="javascript:toggle_display(\''.$id.'_info\')">'.
+             '<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>'.
+             '<span id="'.$id.'_info" class="alert alert-success margin-bottom-10" style="display:none;">'.
+             '<a href="javascript:toggle_display(\''.$id.'_info\')" class="close">X</a>'.$info[$id].'</span>';
+  }         
+  
+  return $html;
+}
+
 echo $this->fetch('include/header.php',[]); 
 ?>
     <body>
@@ -12,7 +32,12 @@ echo $this->fetch('include/header.php',[]);
             <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
               
               <div id="login_div">
-                <?php echo SITE_LOGIN_LOGO ?>
+                <?php 
+                if($register_link) {
+                  echo 'Click <a href="public/register">here to register</a> if not a user. '.show_info('register');
+                }
+                echo SITE_LOGIN_LOGO   
+                ?>
                 
                 <form method="post" id="login_form" action="?mode=login">
                 <?php
@@ -28,16 +53,19 @@ echo $this->fetch('include/header.php',[]);
                   echo '<input id="btn_reset" type="submit" value="Reset password" class="btn btn-primary" onclick="link_download(\'btn_reset\')"><br/>';
 
                 } else {
-                  echo '<input type="text" name="email" value="'.$html['email'].'" class="form-control" placeholder="Your email"><br/>'; 
-                  echo '<input type="checkbox" onclick="checkbox_password_mask(\'pwd_input\',this)" checked>mask password<br/>';
+                  echo '<input type="text" name="email" value="'.$html['email'].'" class="form-control" placeholder="Your email address"><br/>'; 
+                  echo '<input type="checkbox" onclick="checkbox_password_mask(\'pwd_input\',this)" checked class="input-inline">mask password<br/>';
                   echo '<input id="pwd_input" type="password" name="password" class="form-control" placeholder="Your password"><br/>';
 
                   $param = [];
                   echo ' <div class="row">'.
-                        '<div class="col-sm-7"><input type="checkbox" name="remember_me" value="YES">&nbsp;Remember me<br/>'.
+                        '<div class="col-sm-7"><input type="checkbox" name="remember_me" value="YES" CHECKED>&nbsp;Remember me<br/>'.
                         Form::arrayList($html['days'],'days_expire',$html['days_expire'],true,$param).'</div>';
                   echo '<div class="col-sm-5"><input id="btn_login" type="submit" value="login" class="btn btn-primary" onclick="link_download(\'btn_login\')"></div>';
+                  //echo show_info('login');
                   echo '</div>';
+
+
                 }
                 ?>
                 <script>
@@ -49,10 +77,13 @@ echo $this->fetch('include/header.php',[]);
 
                 <div id="login_reset">
                     <form method="post" id="reset_form" action="?mode=reset_send">
-                    <input id="btn_reset2" value="Send me a new login" class="btn btn-primary form-control" onclick="processUserReset('LOGIN')">
+                    <input id="btn_reset2" value="Send me a login link" class="btn btn-primary input-inline" onclick="processUserReset('LOGIN')">
+                    <?php echo show_info('login_link'); ?>
                     <br/><br/>
-                    <input id="btn_reset1" value="Reset my password" class="btn btn-primary form-control" onclick="processUserReset('PASSWORD')">
+                    <input id="btn_reset1" value="Reset my password" class="btn btn-primary input-inline" onclick="processUserReset('PASSWORD')">
+                    <?php echo show_info('reset'); ?>
                     </form>
+
                 </div>
 
               </div>     
@@ -75,7 +106,7 @@ function processUserReset(Reset_type) {
       alert('You have not entered an email address!');
       return false;
     } else {
-      var email = login_form.email.value;
+      var email = login_form.email.value.trim();
       if(!check_valid_email(email)) {
         alert('Invalid email address entered: '+email);
         return false;

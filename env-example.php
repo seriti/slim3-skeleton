@@ -87,11 +87,15 @@ define('ENCRYPT_ROUTE','/admin/data/encrypt');
 if($_SERVER['SERVER_NAME'] === 'localhost') { //DEVELOPMENT
   define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].'/');
 } else {  //PRODUCTION
+  //This is just a default workable url. Replace with section below when you need to.
   define('BASE_URL','https://'.$_SERVER['HTTP_HOST'].'/'); 
-
-  //FORCE HTTPS CONNECTION IF REQUIRED
+  
   /*
-  if(empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off') {
+  //FORCES HTTPS CONNECTION AND URL STRUCTURE OF YOUR CHOICE
+  //Also forces https://www.yourdomain.com RATHER THAN https://yourdomain.com 
+  //define BASE_URL without "www" and use condition "=== 0" for opposite effect. (NB: if you use "!== false" it will eat its tail if host contains "www" somewhere else) 
+  define('BASE_URL','https://www.yourdomain.com/'); 
+  if(empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off' or stripos($_SERVER['HTTP_HOST'],'www') === false) {
     // NO SSL connection
     header('location: '.BASE_URL.substr($_SERVER['REQUEST_URI'],1));
     exit;

@@ -61,7 +61,7 @@ class ImportCsvWizard extends Wizard
         //define pages and templates
         $this->addPage(1,'Specify Table and CSV File','data/csv_wizard_start.php');
         $this->addPage(2,'Review data links','data/csv_wizard_links.php');
-        $this->addPage(3,'Review claim data','data/csv_wizard_review.php');
+        $this->addPage(3,'Review sample data','data/csv_wizard_review.php');
         $this->addPage(4,'Confirmation page','data/csv_wizard_final.php',['final'=>true]);
 
     }

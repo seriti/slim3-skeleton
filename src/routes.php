@@ -35,6 +35,9 @@ if(SETUP_APP === false) {
 
 //NB: must be outside /admin route as Auth middleware will create infinite loop
 $app->any('/login', \App\User\LoginController::class);
+//ALTERNATIVE login wizard for technophobes
+//$app->any('/login', \App\User\LoginWizardController::class);
+
 //required by contact manager module for subscription management
 $app->get('/contact', \App\Contact\ContactPublicController::class);
 //display system errors, not currently used as Slim3 handles errors

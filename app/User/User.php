@@ -37,6 +37,10 @@ class User extends Table
         if($login_user->getAccessLevel() === 'GOD') {
             $sql = 'DELETE FROM '.TABLE_AUDIT.' '.
                    'WHERE '.$this->audit_cols['user_id'].' = "'.$this->db->escapeSql($id).'" ';
+            $this->db->executeSql($sql,$error);
+
+            $sql = 'DELETE FROM '.TABLE_TOKEN.' '.
+                   'WHERE '.$this->token_cols['user_id'].' = "'.$this->db->escapeSql($id).'" ';
             $this->db->executeSql($sql,$error);    
         }
         

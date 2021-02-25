@@ -23,6 +23,7 @@ define('DB_CHARSET','utf8');
 //define('PASSWORD_LENGTH',8);
 //define('PASSWORD_STRONG',true);
 //define('PASSWORD_MESSAGE','Your password can only contain letters and numbers and it must be at least 8 characters long and contain at least 1 lower case, upper case and number');
+//define('LOGIN_EXPIRE_DAYS',30);
 
 //System table names to be used by framework, setup process will create them
 define('TABLE_SYSTEM','system');

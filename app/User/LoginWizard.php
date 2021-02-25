@@ -22,6 +22,7 @@ class LoginWizard extends Wizard
     protected $user_id;
     protected $user;
     protected $mode;
+    protected $login_expire_days = 30;
 
     //configure
     public function setup($param = []) 
@@ -34,12 +35,14 @@ class LoginWizard extends Wizard
         //$param['show_messages'] = false;
         parent::setup($param);
 
+        if(defined('LOGIN_EXPIRE_DAYS')) $this->login_expire_days = LOGIN_EXPIRE_DAYS; 
+
         $this->addVariable(array('id'=>'email','type'=>'EMAIL','title'=>'Your email address'));
         $this->addVariable(array('id'=>'password','type'=>'PASSWORD','title'=>'Your password'));
         $this->addVariable(array('id'=>'password_repeat','type'=>'PASSWORD','title'=>'Your password repeated'));
         $this->addVariable(array('id'=>'human_id','type'=>'STRING','title'=>'Human ID'));
         $this->addVariable(array('id'=>'remember_me','type'=>'BOOLEAN','title'=>'Remember me'));
-        $this->addVariable(array('id'=>'remember_days','type'=>'INTEGER','title'=>'Remember for number of days','new'=>30));
+        $this->addVariable(array('id'=>'remember_days','type'=>'INTEGER','title'=>'Remember for number of days','new'=>$this->login_expire_days));
         $this->addVariable(array('id'=>'login_option','type'=>'STRING','title'=>'Other login options'));
         
         //define pages and templates
@@ -110,7 +113,7 @@ class LoginWizard extends Wizard
         //email a login link to user
         if($this->mode === 'send_login') {
             $user_id = $this->data['user'][$this->user_cols['id']];
-            $days_expire = 30;
+            $days_expire = $this->login_expire_days;
             $this->user->resetSendLoginLink($user_id,$days_expire);
             $this->page_no = 4;
         }    

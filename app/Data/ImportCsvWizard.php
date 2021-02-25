@@ -50,14 +50,15 @@ class ImportCsvWizard extends Wizard
         //define all wizard variables to be captured and stored for all wizard pages
         $this->addVariable(array('id'=>'db_table','type'=>'STRING','title'=>'Database table'));
         $this->addVariable(array('id'=>'unique_field','type'=>'STRING','title'=>'Field in table that must be unique','new'=>'NONE'));
+        $this->addVariable(array('id'=>'update_flag','type'=>'BOOLEAN','title'=>'Update records that match unique field','new'=>false));
         $this->addVariable(array('id'=>'csv_format','type'=>'STRING','title'=>'CSV File format'));
         $this->addVariable(array('id'=>'csv_file','type'=>'STRING','title'=>'CSV File Path'));
+        
         //use these to set a table field with import details so can identify imports for reversal or whatever
         $this->addVariable(array('id'=>'import_flag','type'=>'BOOLEAN','title'=>'Set import flag so can reverse import','new'=>false));
         $this->addVariable(array('id'=>'import_flag_field','type'=>'STRING','title'=>'Table field to store import flag value','new'=>'import_flag'));
         $this->addVariable(array('id'=>'import_flag_value','type'=>'STRING','title'=>'Unique Import flag value to identify imported data','new'=>date('Y-m-d')));
-        
-        
+                
         //define pages and templates
         $this->addPage(1,'Specify Table and CSV File','data/csv_wizard_start.php');
         $this->addPage(2,'Review data links','data/csv_wizard_links.php');
@@ -168,7 +169,10 @@ class ImportCsvWizard extends Wizard
             $param['file_path'] = $this->data['csv_file_path'];
             $param['setup_cols'] = $this->data['link_cols'];
 
-            if($this->form['unique_field'] !== 'NONE') $param['unique_field'] = $this->form['unique_field'];
+            if($this->form['unique_field'] !== 'NONE') {
+                $param['unique_field'] = $this->form['unique_field'];
+                $param['update_flag'] = $this->form['update_flag'];
+            }    
             
             $param['import_flag'] = $this->form['import_flag'];
             $param['import_flag_field'] = $this->form['import_flag_field'];

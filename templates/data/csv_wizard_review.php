@@ -28,7 +28,12 @@ $html .= '<div class="col-lg-7">';
 
 $html .= '<div class="row">'.
          '<div class="col-lg-6">'.Form::arrayList($data['table_col_select'],'unique_field',$form['unique_field'],true,$unique_param).'</div>'.
-         '<div class="col-lg-6">Check this field value & ignore row if it exists.</div>'.
+         '<div class="col-lg-6">Check this unique field value & ignore row if it exists.</div>'.
+         '</div>';
+
+$html .= '<div class="row">'.
+         '<div class="col-lg-6">'.Form::checkBox('update_flag',true,$form['update_flag'],$input_param).'</div>'.
+         '<div class="col-lg-6">Update existing data if unique field value is found.</div>'.
          '</div>';
 
 $html .= '<div class="row">'.

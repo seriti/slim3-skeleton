@@ -16,6 +16,7 @@ use Seriti\Tools\SITE_NAME;
 
 use Seriti\Tools\TABLE_AUDIT;
 use Seriti\Tools\TABLE_USER;
+use Seriti\Tools\TABLE_ROUTE;
 use Seriti\Tools\TABLE_TOKEN;
 use Seriti\Tools\TABLE_SYSTEM;
 
@@ -138,5 +139,52 @@ class Helpers {
 
         return $html;
     }
-    
+
+    //copy user access setting from one user to any other user, unless from user has GOD access
+    //NB: similar function in Seriti/User class
+    public function copyUserAccess($db,$from_user_id,$user_id,&$error) 
+    {
+
+        $error = '';
+        $error_tmp = '';
+
+        $sql = 'SELECT * FROM '.TABLE_USER.' WHERE user_id = "'.$db->escapeSql($from_user_id).'" ';
+        $from_user = $db->readSqlArray($sql);
+        if($from_user['access'] === 'GOD') {
+            $error = 'Cannot copy access details for GOD access level.';
+        } else {
+            $copy = [];
+            $copy['zone'] = $from_user['zone'];
+            $copy['access'] = $from_user['access'];
+            $copy['route_access'] = $from_user['route_access'];
+
+            $where = ['user_id'=>$user_id];
+            $db->updateRecord(TABLE_USER,$copy,$where,$error_tmp);
+            if($error_tmp !== '') {
+                $error .= 'Could not update user access zone and access';
+            } else {
+                if($from_user['route_access']) {
+                    $sql = 'DELETE FROM '.TABLE_ROUTE.' '.
+                           'WHERE user_id = "'.$db->escapeSql($user_id).'" ';
+                    $db->executeSql($sql,$error_tmp);
+                    if($error_tmp !== '') {
+                        $error .= 'Could not remove old route access setting';
+                    } else {
+                        $sql = 'SELECT * FROM '.TABLE_ROUTE.' '.
+                               'WHERE user_id = "'.$db->escapeSql($from_user_id).'" ';
+                        $routes = $db->readSqlArray($sql); 
+                        if($routes != 0) {
+                            foreach($routes as $route) {
+                                $route['user_id'] = $user_id;
+                                $db->insertRecord(TABLE_ROUTE,$route,$error_tmp);
+                                if($error_tmp !== '') $error .= 'Could not insert user access route';
+                            }
+                        }
+                    }    
+                }
+            }
+        }
+
+        if($error === '') return true; else return false; 
+    }
 }

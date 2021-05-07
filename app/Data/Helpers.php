@@ -17,7 +17,7 @@ use Seriti\Tools\SITE_NAME;
 use Psr\Container\ContainerInterface;
 
 
-//static functions for client module
+//static functions for data module
 class Helpers {
     public static function checkTimeout($time_start,$time_max,$time_tolerance=5) 
     {

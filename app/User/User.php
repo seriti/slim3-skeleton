@@ -59,15 +59,17 @@ class User extends Table
             $list['SEND_RESET'] = 'RESET user password and email them login details.';
             $list['SEND_LOGIN'] = 'Send user login link valid for 30days.';
             $list['SEND_EMAIL'] = 'Send users a plain text email.';
+            $list['COPY_ACCESS'] = 'Copy another user access settings.';
         }  
         
         if(count($list) != 0){
             $html .= '<div id="action_div"><table><tr>';
             $html .= '<td><input type="checkbox" id="checkbox_all">(Select all users on page)</td>';
-            $param['class'] = 'form-control';
+            $param['class'] = $this->classes['action'];
             $param['onchange'] = 'javascript:change_table_action()';
             $action_id = '';
             $email_body = '';
+            $from_user_id = '';
 
             $html .= '<td>'.Form::arrayList($list,'table_action',$action_id,true,$param).'</td>';
             //javascript to show collection list depending on selection      
@@ -76,15 +78,24 @@ class User extends Table
                         'function change_table_action() {'.
                         'var table_action = document.getElementById(\'table_action\');'.
                         'var email_text = document.getElementById(\'email_text\');'.
+                        'var from_user = document.getElementById(\'from_user\');'.
                         'var action = table_action.options[table_action.selectedIndex].value; '.
                         'if(action==\'SEND_EMAIL\') {'.
                             'email_text.style.display = \'inline\';} else {email_text.style.display = \'none\';} '.
+                        'if(action==\'COPY_ACCESS\') {'.
+                            'from_user.style.display = \'inline\';} else {from_user.style.display = \'none\';} '.
                         '};'.
                       '</script>';
 
             $param = array();
-            $html .= '<td><span id="email_text" style="display:none"> Message&raquo;'.
-                     Form::textAreaInput('email_body',$email_body,'','','',$param).
+            $param['class'] = $this->classes['action'];
+
+            $html .= '<td><span id="email_text" style="display:none;"> Message &raquo;'.
+                     Form::textAreaInput('email_body',$email_body,'','',$param).
+                     '</span></td>';
+
+            $html .= '<td><span id="from_user" style="display:none"> From user ID &raquo;'.
+                     Form::textInput('from_user_id',$from_user_id,$param).
                      '</span></td>';
 
             $html .= '<td><input type="submit" name="action_submit" value="Apply action to selected '.$this->row_name_plural.'" class="btn btn-primary"></td>'.
@@ -123,6 +134,13 @@ class User extends Table
             if($email_body == '') $error_str .= 'You have not entered any message text for user!';
             $audit_str = 'User send email['.$email_body.']: ';
             $audit_action = 'USER_EMAIL';
+        }
+
+        if($action === 'COPY_ACCESS') {
+            $from_user_id = Secure::clean('integer',$_POST['from_user_id']);  
+            if($from_user_id == '') $error_str .= 'You have not entered a valid user ID to copy access from!';
+            $audit_str = 'Copy from user['.$from_user_id.'] access: ';
+            $audit_action = 'USER_COPY_ACCESS';
         }
            
         if($error_str !== '') {
@@ -173,6 +191,17 @@ class User extends Table
                         } else {
                             $this->addMessage('SUCCESS sending user['.$user_id.'] email to address ['.$mail_to.']'); 
                             $audit_count++;
+                        }
+                    }
+
+                    if($action === 'COPY_ACCESS') {
+                        if($login_user->copyUserAccess($from_user_id,$user_id)) {
+                            $audit_str .= 'SUCCESS!<br/>';
+                            $audit_count++;
+                            $this->addMessage('Successfully copied user access for user ID['.$user_id.'] from user ID['.$from_user_id.'].');                
+                        } else {
+                            $audit_str .= 'ERROR copying user access';
+                            $this->addError('ERROR copying user access for user ID['.$user_id.'] from user ID['.$from_user_id.'].');                
                         }
                     }  
                 }   

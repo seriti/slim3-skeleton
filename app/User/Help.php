@@ -28,8 +28,8 @@ class Help
     {
         $html = '<div class="container">';
         
-        $sql = 'SELECT id,title,text_html,access '.
-               'FROM '.$this->table.' WHERE status <> "HIDE" ORDER BY rank ';
+        $sql = 'SELECT `id`,`title`,`text_html`,`access` '.
+               'FROM `'.$this->table.'` WHERE `status` <> "HIDE" ORDER BY `rank` ';
         $topics = $this->db->readSqlArray($sql);
         if($topics == 0) {
             $html .= 'NO valid help topics found';

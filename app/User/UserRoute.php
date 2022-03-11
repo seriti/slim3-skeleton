@@ -18,7 +18,7 @@ class UserRoute extends Table
         $config = $this->getContainer('config');
         
         $this->setupMaster(array('table'=>TABLE_USER,'key'=>'user_id','child_col'=>'user_id', 
-                                'show_sql'=>'SELECT CONCAT("Allowed pages for user: ",name) FROM '.TABLE_USER.' WHERE user_id = "{KEY_VAL}" '));                        
+                                'show_sql'=>'SELECT CONCAT("Allowed pages for user: ",`name`) FROM `'.TABLE_USER.'` WHERE `user_id` = "{KEY_VAL}" '));                        
 
         
         $this->addTableCol(array('id'=>'route_id','type'=>'INTEGER','title'=>'Route ID','key'=>true,'key_auto'=>true,'list'=>false));
@@ -29,7 +29,7 @@ class UserRoute extends Table
         $this->addTableCol(array('id'=>'sort','type'=>'INTEGER','title'=>'Sort order','new'=>10,'hint'=>'(Set menu display order. First page is default page.)'));
         //$this->addTableCol(array('id'=>'config','type'=>'TEXT','title'=>'Configuration'));
         
-        $this->addSortOrder('T.sort','Sort order','DEFAULT');
+        $this->addSortOrder('T.`sort`','Sort order','DEFAULT');
 
         $this->addAction(array('type'=>'edit','text'=>'edit','icon_text'=>'edit'));
         $this->addAction(array('type'=>'delete','text'=>'delete','pos'=>'R','icon_text'=>'delete'));

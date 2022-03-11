@@ -15,8 +15,8 @@ class User extends Table
     protected function beforeUpdate($id,$edit_type,&$form,&$error_str) 
     {
         //verify email unique
-        $sql = 'SELECT COUNT(*) FROM '.$this->table.' WHERE email = "'.$this->db->escapeSql($form['email']).'" ';
-        if($edit_type === 'UPDATE') $sql .= 'AND user_id <> "'.$this->db->escapeSql($id).'" ';  
+        $sql = 'SELECT COUNT(*) FROM `'.$this->table.'` WHERE `email` = "'.$this->db->escapeSql($form['email']).'" ';
+        if($edit_type === 'UPDATE') $sql .= 'AND `user_id` <> "'.$this->db->escapeSql($id).'" ';  
         $count = $this->db->readSqlValue($sql);
         if($count != 0) $error_str .= 'Your entered email address is already being used in system!<br/>'.
                                       'Email addresses must be unique in system! Please use an alternate email address.'; 
@@ -35,12 +35,12 @@ class User extends Table
     {
         $login_user = $this->getContainer('user');
         if($login_user->getAccessLevel() === 'GOD') {
-            $sql = 'DELETE FROM '.TABLE_AUDIT.' '.
-                   'WHERE '.$this->audit_cols['user_id'].' = "'.$this->db->escapeSql($id).'" ';
+            $sql = 'DELETE FROM `'.TABLE_AUDIT.'` '.
+                   'WHERE `'.$this->audit_cols['user_id'].'` = "'.$this->db->escapeSql($id).'" ';
             $this->db->executeSql($sql,$error);
 
-            $sql = 'DELETE FROM '.TABLE_TOKEN.' '.
-                   'WHERE '.$this->token_cols['user_id'].' = "'.$this->db->escapeSql($id).'" ';
+            $sql = 'DELETE FROM `'.TABLE_TOKEN.'` '.
+                   'WHERE `'.$this->token_cols['user_id'].'` = "'.$this->db->escapeSql($id).'" ';
             $this->db->executeSql($sql,$error);    
         }
         

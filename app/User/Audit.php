@@ -20,7 +20,7 @@ class Audit extends Table
 
         $this->addTableCol(array('id'=>$this->audit_cols['id'],'type'=>'INTEGER','title'=>'Audit ID','key'=>true,'key_auto'=>true,'list'=>false));
 
-        $join = $this->user_cols['name'].' FROM '.TABLE_USER.' WHERE '.$this->user_cols['id'];
+        $join = '`'.$this->user_cols['name'].'` FROM `'.TABLE_USER.'` WHERE `'.$this->user_cols['id'].'`';
         $this->addTableCol(array('id'=>$this->audit_cols['user_id'],'type'=>'STRING','title'=>'User','join'=>$join));
 
         $this->addTableCol(array('id'=>$this->audit_cols['date'],'type'=>'DATETIME','title'=>'Date & time'));
@@ -35,9 +35,9 @@ class Audit extends Table
         $this->addSearch(array($this->audit_cols['user_id'],$this->audit_cols['date'],$this->audit_cols['action'],
                                $this->audit_cols['text']),array('rows'=>2));
 
-        $sql = 'SELECT '.$this->user_cols['id'].','.$this->user_cols['name'].' FROM '.TABLE_USER.' ORDER BY '.$this->user_cols['name'];
+        $sql = 'SELECT `'.$this->user_cols['id'].'`,`'.$this->user_cols['name'].'` FROM `'.TABLE_USER.'` ORDER BY `'.$this->user_cols['name'].'`';
         $this->addSelect($this->audit_cols['user_id'],$sql);
-        $sql = 'SELECT DISTINCT('.$this->audit_cols['action'].') FROM '.$this->table.' ORDER BY '.$this->audit_cols['action'];
+        $sql = 'SELECT DISTINCT(`'.$this->audit_cols['action'].'`) FROM `'.$this->table.'` ORDER BY `'.$this->audit_cols['action'].'`';
         $this->addSelect($this->audit_cols['action'],$sql);
     }
 }

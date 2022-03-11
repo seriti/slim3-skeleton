@@ -41,8 +41,8 @@ class Helpers {
         //session timeout in minutes
         if(!isset($param['session_timeout'])) $param['session_timeout'] = 20; 
 
-        $sql = 'SELECT user_id,name,email FROM '.TABLE_USER.' WHERE (zone = "'.$param['zone'].'" OR zone = "ALL") ';
-        if($user_id !== 'ALL') $sql .= 'AND user_id = "'.$db->escapeSql($user_id).'" ';
+        $sql = 'SELECT `user_id`,`name`,`email` FROM `'.TABLE_USER.'` WHERE (`zone` = "'.$param['zone'].'" OR `zone` = "ALL") ';
+        if($user_id !== 'ALL') $sql .= 'AND `user_id` = "'.$db->escapeSql($user_id).'" ';
         $users = $db->readSqlArray($sql); 
         if($users == 0) $error .= 'No valid users found!'; 
 
@@ -58,11 +58,11 @@ class Helpers {
         
         foreach($users as $user_id => $user) {
             //look at ALL actions as indications of activity including logins
-            $sql = 'SELECT YEAR(date) AS year, MONTH(date) AS month , DAY(date) AS day, MIN(date) AS start, Max(date) AS end, '. 
-                          'TIMESTAMPDIFF(MINUTE,MIN(date),MAX(date)) AS minutes, COUNT(*) AS num  '.
-                   'FROM '.TABLE_AUDIT.' '.
-                   'WHERE user_id = "'.$user_id.'" AND DATE(date) >= "'.$db->escapeSql($date_from).'" AND DATE(date) <= "'.$db->escapeSql($date_to).'" '.
-                   'GROUP BY YEAR(date),MONTH(date),DAY(date)';
+            $sql = 'SELECT YEAR(`date`) AS `year`, MONTH(`date`) AS `month` , DAY(`date`) AS `day`, MIN(`date`) AS `start`, Max(`date`) AS `end`, '. 
+                          'TIMESTAMPDIFF(MINUTE,MIN(`date`),MAX(`date`)) AS `minutes`, COUNT(*) AS `num`  '.
+                   'FROM `'.TABLE_AUDIT.'` '.
+                   'WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) >= "'.$db->escapeSql($date_from).'" AND DATE(`date`) <= "'.$db->escapeSql($date_to).'" '.
+                   'GROUP BY YEAR(`date`),MONTH(`date`),DAY(`date`)';
             $first_col_key = false;
             $user_days = $db->readSqlArray($sql,$first_col_key);
 
@@ -113,9 +113,9 @@ class Helpers {
 
         if($error !== '') return false;
 
-        $sql_exclude = 'AND action NOT LIKE "LOGIN%" ';
+        $sql_exclude = 'AND `action` NOT LIKE "LOGIN%" ';
         if(is_array($param['exclude_tables'])) {
-            $sql_exclude .= 'AND action NOT LIKE "%'.implode('" AND action NOT LIKE "%',$param['exclude_tables']).'" ';    
+            $sql_exclude .= 'AND `action` NOT LIKE "%'.implode('" AND `action` NOT LIKE "%',$param['exclude_tables']).'" ';    
         }
 
         
@@ -123,15 +123,15 @@ class Helpers {
             $title .= 'All users';
             $sql_user = '';
         } else {
-            $sql = 'SELECT name FROM '.TABLE_USER.' WHERE user_id = "'.$db->escapeSql($user_id).'" ';
+            $sql = 'SELECT `name` FROM `'.TABLE_USER.'` WHERE `user_id` = "'.$db->escapeSql($user_id).'" ';
             $title .= 'user: '.$db->readSqlValue($sql);
-            $sql_user = 'A.user_id = "'.$db->escapeSql($user_id).'" AND ';
+            $sql_user = 'A.`user_id` = "'.$db->escapeSql($user_id).'" AND ';
         }    
 
-        $sql = 'SELECT A.action,count(*) AS `count`  '.
-               'FROM '.TABLE_AUDIT.' AS A JOIN '.TABLE_USER.' AS U ON(A.user_id = U.user_id AND (U.zone = "'.$param['zone'].'" OR U.zone = "ALL") ) '.
-               'WHERE '.$sql_user.' DATE(A.date) >= "'.$db->escapeSql($date_from).'" AND DATE(A.date) <= "'.$db->escapeSql($date_to).'" '.$sql_exclude.
-               'GROUP BY A.action ';
+        $sql = 'SELECT A.`action`,count(*) AS `count`  '.
+               'FROM `'.TABLE_AUDIT.'` AS A JOIN `'.TABLE_USER.'` AS U ON(A.`user_id` = U.`user_id` AND (U.`zone` = "'.$param['zone'].'" OR U.`zone` = "ALL") ) '.
+               'WHERE '.$sql_user.' DATE(A.`date`) >= "'.$db->escapeSql($date_from).'" AND DATE(A.`date`) <= "'.$db->escapeSql($date_to).'" '.$sql_exclude.
+               'GROUP BY A.`action` ';
         $first_col_key = false;
         $actions = $db->readSqlArray($sql,$first_col_key);
                 
@@ -148,7 +148,7 @@ class Helpers {
         $error = '';
         $error_tmp = '';
 
-        $sql = 'SELECT * FROM '.TABLE_USER.' WHERE user_id = "'.$db->escapeSql($from_user_id).'" ';
+        $sql = 'SELECT * FROM `'.TABLE_USER.'` WHERE `user_id` = "'.$db->escapeSql($from_user_id).'" ';
         $from_user = $db->readSqlArray($sql);
         if($from_user['access'] === 'GOD') {
             $error = 'Cannot copy access details for GOD access level.';
@@ -164,14 +164,14 @@ class Helpers {
                 $error .= 'Could not update user access zone and access';
             } else {
                 if($from_user['route_access']) {
-                    $sql = 'DELETE FROM '.TABLE_ROUTE.' '.
-                           'WHERE user_id = "'.$db->escapeSql($user_id).'" ';
+                    $sql = 'DELETE FROM `'.TABLE_ROUTE.'` '.
+                           'WHERE `user_id` = "'.$db->escapeSql($user_id).'" ';
                     $db->executeSql($sql,$error_tmp);
                     if($error_tmp !== '') {
                         $error .= 'Could not remove old route access setting';
                     } else {
-                        $sql = 'SELECT * FROM '.TABLE_ROUTE.' '.
-                               'WHERE user_id = "'.$db->escapeSql($from_user_id).'" ';
+                        $sql = 'SELECT * FROM `'.TABLE_ROUTE.'` '.
+                               'WHERE `user_id` = "'.$db->escapeSql($from_user_id).'" ';
                         $routes = $db->readSqlArray($sql); 
                         if($routes != 0) {
                             foreach($routes as $route) {

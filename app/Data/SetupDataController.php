@@ -19,11 +19,10 @@ class SetupDataController
     public function __invoke($request, $response, $args)
     {
         $html = '';
-
+        
         //First check for all framework tables and creates any that are missing
         $setup = new \Seriti\Tools\Setup($this->container['config']);
         $html .= $setup->viewOutput();
-        
 
         //Now check for any updates to standard framework tables or custom system tables
         //NB: not a conventional module like those defined in src/setup_app.php 

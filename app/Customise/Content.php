@@ -57,8 +57,8 @@ class Content extends Table
                 $html = $text;
             }
             
-            $sql='UPDATE '.TABLE_PREFIX.'content SET text_html = "'.$this->db->escapeSql($html).'" '.
-                 'WHERE content_id = "'.$this->db->escapeSql($id).'"';
+            $sql='UPDATE `'.TABLE_PREFIX.'content` SET `text_html` = "'.$this->db->escapeSql($html).'" '.
+                 'WHERE `content_id` = "'.$this->db->escapeSql($id).'"';
             $this->db->executeSql($sql,$error_tmp);
         }
 

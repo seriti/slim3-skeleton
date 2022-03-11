@@ -32,7 +32,7 @@ class Report extends ReportTool
             $param = [];
             $param['xtra'] = array('ALL'=>'ALL users');
             $param['class'] = 'form-control input-medium';
-            $sql = 'SELECT user_id,name FROM '.TABLE_USER.' WHERE zone = "ADMIN" OR zone = "ALL" ORDER BY name';
+            $sql = 'SELECT `user_id`,`name` FROM `'.TABLE_USER.'` WHERE `zone` = "ADMIN" OR `zone` = "ALL" ORDER BY `name`';
             if(isset($form['user_id'])) $user_id = $form['user_id']; else $user_id = 'ALL';
             $html .= Form::sqlList($sql,$this->db,'user_id',$user_id,$param);
         }   

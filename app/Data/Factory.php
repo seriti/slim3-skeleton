@@ -210,7 +210,7 @@ class Factory
     {
         $cols = [];
 
-        $sql = 'SHOW COLUMNS FROM '.$this->db->escapeSql($table);
+        $sql = 'SHOW COLUMNS FROM `'.$this->db->escapeSql($table).'`';
         $table_cols = $this->db->readSqlArray($sql);
 
         //print_r($table_cols);
@@ -243,8 +243,8 @@ class Factory
                     $col['title'] = substr($col['title'],0,-3);
                     
                     $link_table = substr($col_id,0,-3);
-                    $col['join'] = "name FROM '.TABLE_PREFIX.'".$link_table." WHERE ".$col_id;
-                    $col['select'] = 'SELECT '.$col_id.", name FROM '.TABLE_PREFIX.'".$link_table." ORDER BY name";
+                    $col['join'] = "`name` FROM `'.TABLE_PREFIX.'".$link_table."` WHERE `".$col_id."`";
+                    $col['select'] = 'SELECT `'.$col_id."`, `name` FROM `'.TABLE_PREFIX.'".$link_table."` ORDER BY `name`";
                 }
 
 
@@ -525,7 +525,7 @@ class Factory
                 }
                 
                 $str_master = $indent.'$this->setupMaster(['."'table'=>TABLE_PREFIX.'".$master_name['table']."','key'=>'".$master_key_col."','child_col'=>'".$master_key_col."',"."\r\n". 
-                              $indent."                    'show_sql'=>'SELECT CONCAT(\"".$master_name['row'].": \",name) FROM '.TABLE_PREFIX.'".$master_name['table']." WHERE ".$master_key_col." = \"{KEY_VAL}\" ']);".
+                              $indent."                    'show_sql'=>'SELECT CONCAT(\"".$master_name['row'].": \",`name`) FROM `'.TABLE_PREFIX.'".$master_name['table']."` WHERE `".$master_key_col."` = \"{KEY_VAL}\" ']);".
                               "\r\n\r\n";
             } 
 

@@ -24,7 +24,7 @@ class ImportCsvWizard extends Wizard
     protected $system;
 
     protected $upload_dir = BASE_UPLOAD.UPLOAD_TEMP;
-    protected $max_size = 1000000;
+    protected $max_size = 10000000;
        
     //configure
     public function setup($param = []) 
@@ -80,7 +80,7 @@ class ImportCsvWizard extends Wizard
             $file_options = array();
             $file_options['upload_dir'] = $this->upload_dir;
             $file_options['allow_ext'] = array('csv','txt');
-            $file_options['max_size'] = $max_size;
+            $file_options['max_size'] = $this->max_size;
             $save_name = $this->form['db_table'].'_import';
             $file_name = Form::uploadFile('csv_file',$save_name,$file_options,$error);
             if($error !== '') {

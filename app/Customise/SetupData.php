@@ -50,7 +50,7 @@ class SetupData extends SetupModuledata
                             ) ENGINE = MyISAM DEFAULT CHARSET = utf8');
 
         //initialisation
-        $this->addInitialSql('INSERT INTO `TABLE_PREFIXmenu` (id_parent,title,level,lineage,menu_link,menu_type,menu_access) '.
+        $this->addInitialSql('INSERT INTO `TABLE_PREFIXmenu` (`id_parent`,`title`,`level`,`lineage`,`menu_link`,`menu_type`,`menu_access`) '.
                              'VALUES("0","Dashboard","1","","admin/user/dashboard","LINK_SYSTEM",VIEW")');
         
         

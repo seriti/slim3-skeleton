@@ -33,9 +33,9 @@ class PdfSetup
         $report_id='';
 
 
-        $sql_get='SELECT sys_text FROM system WHERE system_id = "{DEFAULT_ID}"';
-        $sql_set='REPLACE INTO system (system_id,sys_count,sys_text) VALUES("{DEFAULT_ID}",1,"{DEFAULT_VALUE}") ';
-        $sql_del='DELETE FROM system WHERE system_id LIKE "PDF_%"';
+        $sql_get='SELECT `sys_text` FROM `system` WHERE `system_id` = "{DEFAULT_ID}"';
+        $sql_set='REPLACE INTO `system` (`system_id`,`sys_count`,`sys_text`) VALUES("{DEFAULT_ID}",1,"{DEFAULT_VALUE}") ';
+        $sql_del='DELETE FROM `system` WHERE `system_id` LIKE "PDF_%"';
 
 
         $layout['show_desc']=true;
@@ -202,9 +202,9 @@ class PdfSetup
                 
                 if(count($error)==0)    {
                     //get latest image count and increment by 1
-                    $sql='SELECT sys_count FROM system WHERE system_id = "IMAGES" ';
+                    $sql='SELECT `sys_count` FROM `system` WHERE `system_id` = "IMAGES" ';
                     $k=$this->db->readSqlValue($sql)+1;
-                    $sql='UPDATE system SET sys_count = sys_count + 1 WHERE system_id = "IMAGES" ';
+                    $sql='UPDATE `system` SET `sys_count` = `sys_count` + 1 WHERE `system_id` = "IMAGES" ';
                     $this->db->executeSql($sql,$error_str);
                   
                     $file_name='PDF_logo'.$k.'.'.$file_ext;
@@ -537,7 +537,7 @@ class PdfSetup
                 if($audit_changes)
                 {
                     $audit_str='SYSTEM defaults... report settings';
-                    $sql='INSERT INTO audit_trail (user_id,date,action,description) '.
+                    $sql='INSERT INTO `audit_trail` (`user_id`,`date`,`action`,`description`) '.
                          'VALUES ("'.$this->db->escapeSql($_SESSION['admin_id']).'",NOW(),"PDF_SETUP","'.$this->db->escapeSql($audit_str).'") ';
                     $this->db->executeSql($sql,$error_str);
                 }

@@ -8,7 +8,7 @@ use Seriti\Tools\Html;
 class Help extends Table 
 {
     //configure
-    public function setup() 
+    public function setup($param = []) 
     {
         $param = ['row_name'=>'Help topic','col_label'=>'title'];
         parent::setup($param);
@@ -45,8 +45,8 @@ class Help extends Table
         $text = $form['text_markdown'];
         if($text !== '') {
             $html = Html::markdownToHtml($text);  
-            $sql='UPDATE '.$this->table.' SET text_html = "'.$this->db->escapeSql($html).'" '.
-                 'WHERE id = "'.$this->db->escapeSql($id).'"';
+            $sql='UPDATE `'.$this->table.'` SET `text_html` = "'.$this->db->escapeSql($html).'" '.
+                 'WHERE `id` = "'.$this->db->escapeSql($id).'"';
             $this->db->executeSql($sql,$error);
             if($error !== '') throw new Exception('CUSTOM_HELP: could not convert markdown into HTML');
         }  

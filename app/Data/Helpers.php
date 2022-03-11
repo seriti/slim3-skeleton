@@ -53,7 +53,7 @@ class Helpers {
         if(!isset($param['type'])) $param['type'] = false;
         if(!isset($param['key'])) $param['key'] = false;
 
-        $sql = 'SHOW COLUMNS FROM '.$table;
+        $sql = 'SHOW COLUMNS FROM `'.$table.'`';
         $cols = $db->readSqlArray($sql); 
         foreach($cols as $col_id => $col) {
             $col_id = str_replace('.','_',$col_id);

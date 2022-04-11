@@ -36,6 +36,15 @@ class ConfigAdmin
         $zone = 'ADMIN';
         //will return false unless a user is logged in with access >= minimum level and zone = ALL or ADMIN and status <> HIDE
         $valid = $user->checkAccessRights($zone);
+        
+        //will be true if user has route whitelist configured
+        $route_whitelist = $user->getRouteAccess(); 
+        if($route_whitelist) {
+            $whitelist = $user->getRouteWhitelist();
+            $logo_link = array_key_first($whitelist);
+        } else {
+            $logo_link = 'admin/user/dashboard';
+        }
 
         //after user logged in
         $menu = $this->container->menu;
@@ -53,12 +62,14 @@ class ConfigAdmin
 
             //delete user session,tokens,cookies
             if(!$valid) $user->manageUserAction('LOGOUT');
-        }    
+        }   
+
+
 
         if(!$valid) return $response->withRedirect('/'.$redirect_route);
         
         $system = []; //can specify any GOD access system menu items
-        $menu_options['logo_link'] = BASE_URL.'admin/user/dashboard';
+        $menu_options['logo_link'] = BASE_URL.$logo_link;
         $menu_options['active_link'] = URL_CLEAN;
         $menu_html = $menu->buildMenu($system,$menu_options);
         $this->container->view->addAttribute('menu',$menu_html);

@@ -51,6 +51,7 @@ define('MAIL_METHOD','smtp');
 define('MAIL_CHARSET','UTF-8');
 define('MAIL_SUPPORT','support@yourdomain.com');
 define('MAIL_FROM','from@yourdomain.com');
+//define('MAIL_REPLY','reply@yourdomain.com'); set this if you require a different address from MAIL_FROM (ie: if you are sending mail on another domain)
 define('MAIL_TO','to@yourdomain.com');
 define('MAIL_WEBMASTER','webmaster@yourdomain.com');
 define('MAIL_HOST','mail.yourdomain.com'); //dedi14.jnb2.host-h.net must be used if tls is set

@@ -21,7 +21,7 @@ class Audit extends Table
         $this->addTableCol(array('id'=>$this->audit_cols['id'],'type'=>'INTEGER','title'=>'Audit ID','key'=>true,'key_auto'=>true,'list'=>false));
 
         $join = '`'.$this->user_cols['name'].'` FROM `'.TABLE_USER.'` WHERE `'.$this->user_cols['id'].'`';
-        $this->addTableCol(array('id'=>$this->audit_cols['user_id'],'type'=>'STRING','title'=>'User','join'=>$join));
+        $this->addTableCol(array('id'=>$this->audit_cols['user_id'],'type'=>'STRING','title'=>'User','edit_title'=>'User ID','join'=>$join));
 
         $this->addTableCol(array('id'=>$this->audit_cols['date'],'type'=>'DATETIME','title'=>'Date & time'));
         $this->addTableCol(array('id'=>$this->audit_cols['action'],'type'=>'STRING','title'=>'Action'));

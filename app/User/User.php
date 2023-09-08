@@ -268,9 +268,9 @@ class User extends Table
 
         if($route_access) {
             $this->addAction(array('type'=>'popup','text'=>'Allowed pages','url'=>'user_route','mode'=>'view','width'=>600,'height'=>600,'verify'=>true));
-            $this->addSearch(array('user_id','name','email','access','route_access'),array('rows'=>2));    
+            $this->addSearch(array('user_id','name','email','access','zone','route_access'),array('rows'=>2));    
         } else {
-            $this->addSearch(array('user_id','name','email','access'),array('rows'=>2));    
+            $this->addSearch(array('user_id','name','email','access','zone'),array('rows'=>2));    
         }
         
         

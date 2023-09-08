@@ -24,7 +24,7 @@ class Help extends Table
         $this->addTableCol(array('id'=>'access','type'=>'STRING','title'=>'User access minimum','new'=>'USER'));
         $this->addTableCol(array('id'=>'status','type'=>'STRING','title'=>'Status'));
         
-        $this->addSortOrder('rank','By ranking number','DEFAULT');
+        $this->addSortOrder('`rank`','By ranking number','DEFAULT');
 
         //$this->addAction(array('type'=>'check_box','text'=>''));
         $this->addAction(array('type'=>'edit','text'=>'edit','icon_text'=>'edit'));
@@ -38,7 +38,7 @@ class Help extends Table
 
     } 
 
-     function afterUpdate($id,$edit_type,$form) 
+    protected function afterUpdate($id,$edit_type,$form) 
     {
         $error = '';
         //converts page markdown into html and save 

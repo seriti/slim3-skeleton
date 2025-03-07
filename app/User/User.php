@@ -7,6 +7,7 @@ use Seriti\Tools\Form;
 use Seriti\Tools\Secure;
 use Seriti\Tools\Audit;
 use Seriti\Tools\TABLE_AUDIT;
+use Seriti\Tools\TABLE_TOKEN;
 
 class User extends Table 
 {
@@ -251,7 +252,7 @@ class User extends Table
         $this->addTableCol(array('id'=>'password','type'=>'PASSWORD','title'=>'Password','max'=>250,'list'=>false,
                                  'hint'=>'(NB: For NEW users please note password as it will be one-way encrypted when stored!<br/>To change existing user password click "Create New" checkbox, then enter new password and Submit)'));
 
-        if($login_user->getAccessLevel() === 'GOD' and $login_user->getEmail() === 'mark@seriti.com') {
+        if($login_user->getAccessLevel() === 'GOD') {
             //$this->addTableCol(array('id'=>'pwd_date','type'=>'DATE','title'=>'Password expiry date'));
             $this->addTableCol(array('id'=>'login_fail','type'=>'INTEGER','title'=>'Login FAIL count','list'=>false));
             $this->addTableCol(array('id'=>'email_token','type'=>'STRING','title'=>'Email token','list'=>false,'required'=>false));

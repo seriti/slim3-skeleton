@@ -34,7 +34,7 @@ $btn_text = 'Login';
         echo '<br/>';
 
         echo '<div class="row">'.
-               '<div class="col-sm-7"><input type="checkbox" name="remember_me" value="YES" CHECKED>&nbsp;Remember me '.
+               '<div class="col-sm-7"><input type="checkbox" name="remember_me" value="1" CHECKED>&nbsp;Remember me '.
                Form::arrayList($html['days'],'remember_days',$form['remember_days'],true,$param).
                '</div>';
         echo   '<div class="col-sm-5">'.

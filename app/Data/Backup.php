@@ -27,5 +27,11 @@ class Backup extends BackupTool
         $this->setupIgnore('SUB_DIRECTORY','vendor');
         $this->setupIgnore('SUB_DIRECTORY','storage');
         $this->setupIgnore('SUB_DIRECTORY','logs');
+
+        //use when backup type = MYSQLDUMP_TABLES and ONLY include specified tables 
+        //$this->setupInclude('TABLE','tablexxx');
+        
+        //used when backup type = MYSQLDUMP for ALL tables except ignored 
+        //$this->setupIgnore('TABLE','tablexxx');
     }
 }

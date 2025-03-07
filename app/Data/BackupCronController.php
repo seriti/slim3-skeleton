@@ -26,8 +26,12 @@ class BackupCronController
         $backup = new Backup($this->container->mysql,$this->container,TABLE_BACKUP);
         
         $html = 'Nothing processed'; 
+
         $mode = 'none';
-        if(isset($_GET['mode'])) $mode = $_GET['mode'];    
+        if(isset($_GET['mode'])) $mode = $_GET['mode'];  
+
+        $type = 'ALL';
+        if(isset($_GET['type'])) $type = $_GET['type'];    
 
         if($mode !== 'none') {
             $param = [];
@@ -38,6 +42,15 @@ class BackupCronController
             if($mode === 'db_day') $param['name_suffix'] = 'DAY';
             if($mode === 'db_month') $param['name_suffix'] = 'MONTH';
             if($mode === 'db_date') $param['name_suffix'] = 'DATE';
+
+            //ALL tables except those excluded
+            if($type === 'ALL') $param['type'] = 'MYSQLDUMP';
+            //ONLY tables specifically included
+            if($type === 'TABLES') {
+                $param['type'] = 'MYSQLDUMP_TABLES';
+                $param['name_tables'] = '_salt_tables_';
+            }    
+
             $html = $backup->backupAnyDatabase($param);
         }   
 
